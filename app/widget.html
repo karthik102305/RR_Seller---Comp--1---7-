@@ -1,0 +1,5091 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Point Of Sale</title>
+  <link href="https://fonts.googleapis.com/css?family=Manrope" rel="stylesheet" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      font-family: "Poppins",  sans-serif;
+    }
+
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+    body {
+      background-color: #f7f6f9;
+    }
+
+    .POS_Container {
+      height: 100vh;
+      background-color: #f6d5ab;
+      overflow-y: scroll;
+      scrollbar-width: none;
+    }
+
+    .inner_container {
+      display: flex;
+      vertical-align:  middle;
+    }
+    
+    #search_element {
+      border: none;
+      outline: none;
+      width: 100%;
+      background-color: white;
+      outline: none;
+    }
+          /* Remove the clear button default styling */
+  #search_element::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+    display: none;
+  }
+    #clear-btn {
+    display: flex;
+    padding: 0px;
+    font-size: 20px;
+    background-color: white;
+    border: none;
+    font-weight: 600;
+    }
+    .search {
+      display: flex;
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 6px;
+    width: 100%;
+    }
+
+    .search_icon {
+      color: #89928e;
+    }
+
+    .body_container {
+      width: 100%;
+      padding: 10px;
+      display: block;
+    }
+
+    .menu_list {
+      display: flex;
+      gap: 20px;
+    }
+
+    .menu_list li {
+      list-style: none;
+      background-color: rgba(217, 217, 217, 0.68);
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    /* .menu_list li:hover {
+} */
+
+    .menu_list li a {
+      text-decoration: none;
+      color: rgba(169, 169, 169, 1);
+      font-size: 12px;
+      padding: 10px 15px;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .menu_list a:focus {
+      background-color: rgba(132, 201, 61, 1);
+      color: white;
+    }
+
+    .header_list {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0px;
+      display: none;
+    }
+
+    ::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    .selectDrop_section {
+      border-radius: 10px;
+      padding-top: 20px;
+      background-color: white;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      overflow-y: scroll;
+    }
+
+    /* .customer_name {
+      padding: 10px;
+      border: none;
+      outline: none;
+      padding: 5px;
+    }
+    .customer_name option {
+      padding: 10px;
+      outline: none;
+    } */
+    .pcard_container {
+      width: 54%;
+    }
+
+    .body_header {
+      padding: 0px 0px 20px 0px;
+    }
+
+    .menu_container {
+      width: 100%;
+      display: flex;
+    }
+
+    .pcard_container_inner {
+      width: 75%;
+      height: calc(100vh - 77px);
+      overflow-y: scroll;
+    }
+
+    .show_discount_container {
+      width: 35%;
+      height: calc(100vh - 77px);
+      background-color: #ffffff;
+      padding: 10px 15px;
+      border-radius: 10px;
+      overflow-y: scroll;
+    }
+
+    .show_discount_container option {
+      font-size: 11px;
+      display: block;
+      width: 100%;
+      color: black;
+      margin: 10px 0px;
+      padding: 10px;
+      background-color: #e6bd81;
+      border: 1px solid rgb(232, 232, 232);
+      border-radius: 3px;
+    }
+
+    .show_discount_container p {
+      font-size: 11px;
+    display: block;
+    width: 100%;
+    color: black;
+    margin: 10px 0px;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  }
+  .show_discount_container p:nth-child(1) {
+    border: 1px solid rgba(236, 236, 236, 0.47);
+    box-shadow: none;
+  }
+  .discount_option {
+    border: none;
+    box-shadow: 0px;
+
+    }
+    .show_discount_container .offer_title {
+      color: green;
+      font-weight: 500;
+      text-decoration: underline;
+    }
+
+    .card_container {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .card_inner_sec {
+      width: 48%;
+      background-color: #ffffff;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 0px 0px;
+      padding: 10px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+    }
+
+    .card_inner_sec .dish_description {
+      font-size: 12px;
+    }
+
+    .comment_sec input {
+      border: 1px solid whitesmoke;
+      outline: none;
+      padding: 10px;
+      width: 100%;
+    }
+
+    .img_sec {
+      width: 100%;
+      height: 120px;
+    }
+
+    .img_sec img {
+      width: 100%;
+      border-top-right-radius: 20px;
+      border-top-left-radius: 20px;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .img_data {
+      padding: 8px 10px;
+    }
+
+    .dish_name {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    h3.dish_description {
+      font-size: 10px;
+      font-weight: 400;
+    }
+
+    .dish_price {
+      font-size: 12px;
+      color: rgba(255, 137, 6, 1);
+      font-weight: 400;
+      padding: 0px 0px 5px 0px;
+      padding: 10px 0;
+    }
+
+    .inner_sub_sec {
+      align-items: center;
+      gap: 5px;
+    }
+
+    .inner_sub_sec h1 {
+      font-size: 20px;
+      color: rgba(216, 159, 101, 1);
+      font-weight: 500;
+    }
+
+    .inner-body_container {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+    }
+
+    .inner_order_sec h3 {
+      font-size: 14px;
+      padding-bottom: 15px;
+    }
+
+    .left_nav_bar {
+      background-color: #ffffff;
+      width: 45%;
+      padding: 10px 10px;
+      border-radius: 10px;
+      height: calc(100vh - 25px);
+      overflow-y: scroll;
+    }
+
+    .order_header .order_header_inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .order_header_inner h3 {
+      font-size: 18px;
+      font-weight: 500;
+
+    }
+
+    .order_header_inner button {
+      align-items: center;
+      background-color: #e6bd81;
+      border-radius: 5px;
+      border-style: none;
+      color: black;
+      cursor: pointer;
+      font-weight: 500;
+      padding: 10px 20px;
+      text-align: center;
+      transition: .3s;
+    }
+
+    .order_header_inner button:hover {
+      scale: 1.05;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+    }
+
+    button i {
+      margin-right: 10px;
+    }
+    #discountValue1::-webkit-outer-spin-button,
+    #discountValue1::-webkit-inner-spin-button {
+  -webkit-appearance: none !important;
+}
+    #popup {
+      display: none;
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .popup-content {
+      text-align: center;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 17px;
+      box-shadow: rgba(138, 152, 255, 0.7) 0px 0px 16px;
+    }
+
+    .Pass_input_parent {
+      position: relative;
+    }
+
+    .popup-content input {
+      padding: 10px;
+      font-size: 16px;
+      width: 100%;
+      margin: 10px 0;
+      border: 1px solid #35c4ff;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    .PasswordVisible {
+      position: absolute;
+      right: 10px;
+      top: -3px;
+      color: #6d6c6c;
+      cursor: pointer;
+    }
+
+    .popup-content .buttons {
+      display: flex;
+      padding: 20px 0px;
+      justify-content: space-between;
+    }
+
+    .popup-content button {
+      background-color: #0095ff;
+      border: 1px solid transparent;
+      border-radius: 3px;
+      box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
+      color: #fff;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 400;
+      margin: 0;
+      outline: none;
+      padding: 8px .8em;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .popup-content button:hover,
+    .popup-content button:focus {
+      background-color: #07c;
+    }
+
+    #lockButton {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 12px;
+      padding: 5px 10px;
+    }
+
+    #lockButton:hover {
+      background-color: #0056b3;
+    }
+
+    .order_list_image {
+      display: flex;
+      gap: 5px;
+    }
+
+    .order_list_image img {
+      width: 70px;
+      height: 70px;
+      border-radius: 13px;
+      object-fit: contain;
+    }
+
+    .order_item_details {
+      font-size: 12px;
+      align-items: center;
+      display: flex;
+      gap: 5px;
+    }
+
+    .order_item_details .item_name {
+      width: 140px !important;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-weight: 500;
+      text-wrap: nowrap;
+    }
+
+    .order_counter .sub_order_item_details {
+      display: flex;
+    }
+
+    .manual_discount {
+      display: flex;
+      /* border: 1px dotted rgb(211, 211, 211); */
+      padding: 0px 0px;
+    }
+
+    .manual_discount select {
+      font-size: 12px;
+      border: 1px solid transparent;
+      outline: none;
+      padding: 1px 0px;
+      text-align: center;
+      transition: border 0.3s ease;
+    }
+
+    .manual_discount select option {
+      font-size: 12px;
+    }
+
+    .manual_discount input {
+      width: 50px;
+      font-size: 14px;
+      padding: 1px 0px;
+      border: 1px solid transparent;
+      border-right: 1px solid #c4c4c4;
+      ;
+      outline: none;
+      text-align: center;
+      transition: border 0.3s ease;
+    }
+
+    .manual_discount input:focus {
+      border-color: #4caf50;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+
+    .manual_discount select:focus {
+      border-color: #4caf50;
+      box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+    }
+
+    .order_item_details h1 {
+      font-size: 14px;
+      color: rgba(255, 137, 6, 1);
+      font-weight: 400;
+    }
+
+    .order_counter {
+      display: flex;
+      border: 1px dotted rgb(211, 211, 211);
+      padding: 0px 0px;
+      border-right: none;
+    }
+
+    .order_counter input {
+      width: 50px;
+      font-size: 10px;
+      border: 1px solid transparent;
+      border-right: 1px solid #c4c4c4;
+      outline: none;
+      text-align: center;
+      transition: border 0.3s ease;
+    }
+
+    .order_counter p {
+      width: 50px;
+      margin-bottom: 0px;
+      font-size: 10px;
+      border: 1px solid transparent;
+      outline: none;
+      text-align: center;
+      padding-top: 5px;
+      transition: border 0.3s ease;
+    }
+
+    .order_counter select {
+      font-size: 10px;
+      border: 1px solid transparent;
+      outline: none;
+      border-right: 1px solid rgb(177, 177, 177);
+      text-align: center;
+      transition: border 0.3s ease;
+      text-overflow: ellipsis;
+    }
+
+    .order_counter span {
+      color: black;
+      font-size: 10px;
+      border-radius: 4px;
+      padding: 3px 3px;
+      border: 2px solid black;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .order_list {
+      border: 1px solid rgba(239, 236, 236, 1);
+      border-radius: 2px;
+      padding: 0px;
+      margin-bottom: 5px;
+    }
+
+    .order_list_item h3,
+    h1 {
+      margin: 0px;
+      font-weight: 500;
+
+    }
+
+    .bill_section {
+      padding-top: 10px;
+      display: none;
+    }
+
+    .bill_section .bill_amount_sec p,
+    .bill_section .bill_amount_sec p,
+    .discount p {
+      font-size: 10px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: black;
+    }
+
+    .bill_amount_sec,
+    .discount {
+      display: flex;
+    justify-content: space-between;
+    padding: 3px 0px;
+    border-bottom: 1px solid #d2d2d2;
+    border-bottom: 1px solid #d2d2d2;
+    font-family: "Poppins";
+    align-items: center;
+    }
+
+    .total_bill_amount p {
+      font-size: 10px;
+    font-weight: 500;
+    margin-bottom: 3px !important;
+    color: black;
+    }
+
+    .total_bill_amount {
+      display: flex
+;
+    justify-content: space-between;
+    padding: 3px 0px;
+    border-bottom: 1px solid #d2d2d2;
+    border-bottom: 1px solid #d2d2d2;
+    font-family: "Poppins";
+    align-items: center;
+    }
+    #btn_parent_section {
+    display: flex;
+    width: 50%;
+    justify-content: space-between;
+}
+    .select_order button {
+      padding: 10px 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 12px;
+    text-align: center;
+    color: white;
+    transition: .3s;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    }
+    .select_order button:hover {
+      scale: 1.03;
+    }
+    .select_order button:first-child {
+      background-color: rgba(236, 90, 90, 1);
+      width: 50%;
+    }
+
+    .select_order button:last-child {
+      width: 50%;
+      background-color: rgba(132, 201, 61, 1);
+    }
+
+    .select_order {
+      display: flex;
+      gap: 20px;
+      padding: 20px 10px;
+      margin: 0 auto;
+    }
+
+    .discount_dropdown {
+      width: 100%;
+      padding: 3px;
+      border: 1px dotted #047857;
+      text-overflow: ellipsis;
+      color: #027604;
+    }
+
+    .sidenav {
+      height: 100%;
+      width: 200px;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      padding-top: 20px;
+    }
+
+    .sidenav a {
+      padding: 8px 8px 8px 16px;
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+      color: #f1f1f1;
+    }
+
+    .menu_item {
+      position: relative;
+    }
+
+    .menu_item>a {
+      display: block;
+      padding: 5px 7px;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .submenu {
+      list-style-type: none;
+      padding: 15px 5px;
+      margin: 0;
+      display: none;
+      top: 0;
+      left: 0;
+      background-color: #ffffff;
+      z-index: 1000;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      border-radius: 8px;
+    }
+
+    .submenu li {
+      padding: 10px 15px;
+    }
+
+    .submenu li a {
+      color: rgba(82, 87, 92, 1);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .side_menu .menu_item .submenu {
+      margin: 0px 0px;
+    }
+
+    .side_menu .menu_item .submenu li a {
+      width: 100%;
+    }
+
+    .side_menu .menu_item .submenu li a:hover {
+      color: rgba(0, 126, 255, 1);
+    }
+
+    .side_menu .menu_item .submenu li:hover {
+      background-color: #f5faff;
+    }
+
+    .outer_order_sec {
+      display: flex;
+    }
+
+    .label {
+      display: flex;
+      font-size: 14px;
+      padding-top: 20px;
+      margin-bottom: 10px;
+      gap: 10px;
+      vertical-align: middle;
+    }
+
+    .label span {
+      font-size: 20px;
+    }
+
+    .label_input {
+      border: 2px solid rgba(216, 216, 218, 1);
+      border-radius: 6px;
+      width: 90%;
+      padding: 4px 5px;
+      margin-bottom: 10px;
+    }
+
+    .comment_sec .comments_input {
+      border: 2px solid rgba(216, 216, 218, 1);
+      border-radius: 6px;
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px 15px;
+    }
+
+    .inner_order_list {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0px 5px;
+    }
+
+    /* payment style_sheet */
+
+    .Return_container {
+      background-color: #f7f6f9;
+      width: 100%;
+      padding: 20px;
+      display: none;
+    }
+
+    .Return_Section {
+      background-color: white;
+      padding: 15px;
+      border-radius: 15px;
+      width: 100%;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      margin: 10px;
+    }
+
+    .Return_container .Return_Main_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .Return_container .Return_Main_header .title {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .Return_container .Return_Main_header .title h1 {
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .Return_container .Return_Main_header .title p {
+      font-size: 12px;
+      color: #64748b;
+    }
+
+    .Return_container .Return_Main_header .btn_parent {
+      display: flex;
+      gap: 10px;
+    }
+
+    .Return_Main_header .btn_parent button {
+      background-color: #047857;
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 5px 10px;
+    }
+
+    .Return_Main_header .btn_parent button i {
+      color: white;
+      font-size: 14px;
+    }
+
+    .Return_Main_header .btn_parent button a {
+      text-decoration: none;
+      color: white;
+      font-size: 12px;
+    }
+
+    .Return_header_nav {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding-top: 20px;
+      border-bottom: 1px solid rgba(231, 234, 238, 1);
+    }
+
+    .Return_header_nav li {
+      list-style: none;
+      text-align: left;
+      width: 17%;
+    }
+
+    .Return_header_nav li:first-child {
+      padding-left: 0px;
+    }
+
+    .Return_header_nav li a {
+      text-decoration: none;
+      color: black;
+      font-size: 12px;
+      padding: 5px 30px;
+      width: 100%;
+      font-weight: 500;
+      text-align: center;
+      display: block;
+      border-bottom: 2px solid transparent;
+      text-transform: capitalize;
+    }
+
+    /* .Return_header_nav li a:focus {
+background-color: #ffcb8e;
+}
+.Return_header_nav li:first-child a:first-child {
+background-color: #ffcb8e;
+} */
+    .Return_filter_header {
+      padding: 5px 10px;
+      margin-top: 20px;
+      background-color: #f7f8f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .Return_search_sect {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background-color: white;
+      border: 1px solid #e7eaee;
+      padding: 5px 10px;
+      width: 25%;
+      border-radius: 5px;
+    }
+
+    .Return_search_sect i {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .Return_search_sect input {
+      outline: none;
+      border: none;
+      color: #64748b;
+      width: 100%;
+    }
+
+    .Return_search_sect input::placeholder {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .Return_filter_parent {
+      display: flex;
+      gap: 10px;
+      padding: 4px 10px;
+      background-color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .Return_filter_parent span {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .Return_table_container {
+      padding: 10px 0px;
+      overflow-y: scroll;
+      height: 450px;
+      scrollbar-width: none;
+      display: block;
+    }
+
+    .Return_table_container table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .Return_table_container table th {
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 400;
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #d0d5dd;
+    }
+
+    .Return_table_container table th:nth-child(1) {
+      width: 10%;
+    }
+
+    .Return_table_container table th:nth-child(2) {
+      width: 10%;
+    }
+
+    .Return_table_container table th:nth-child(8) {
+      text-align: center;
+    }
+
+    .Return_table_container table th:nth-child(9) {
+      width: 15%;
+      text-align: center;
+    }
+
+    .Return_table_container table td {
+      color: black;
+      font-size: 12px;
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #d0d5dd;
+    }
+
+    .Return_table_container table td:nth-child(1) {
+      color: #64748b;
+    }
+
+    .Return_table_container table td:nth-child(4) {
+      color: #64748b;
+    }
+
+    .Return_table_container table td:nth-child(5) {
+      font-weight: 600;
+    }
+
+    .Return_table_container table td:nth-child(6) {
+      font-weight: 600;
+    }
+
+    .Return_table_container table td:nth-child(7) {
+      font-weight: 600;
+    }
+
+    .Return_table_container table td:nth-child(9) button {
+      background-color: rgba(51, 122, 183, 0.46) f9ff;
+      border-radius: 3px;
+      text-align: center;
+    }
+
+    .Return_table_container table td:nth-child(9) button a {
+      color: #ff0000;
+      font-weight: 500;
+    }
+
+    .Return_table_container table td span {
+      background-color: #ecfdf5;
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: 4px;
+      font-weight: 500;
+      color: black;
+      margin: 0 auto;
+      border: 1px solid rgba(216, 216, 216, 1);
+    }
+
+    #return_table_container {
+      display: none;
+    }
+
+    #return_table_container table td:nth-child(1) {
+      color: #64748b;
+    }
+
+    #return_table_container table td:nth-child(3) {
+      color: #64748b;
+      text-decoration: underline;
+    }
+
+    #return_table_container table td:nth-child(5) {
+      color: #64748b;
+      font-weight: 400;
+    }
+
+    #return_table_container table td:nth-child(2) {
+      font-weight: 400;
+    }
+
+    #return_table_containertable td:nth-child(6) {
+      font-weight: 600;
+    }
+
+    #return_table_container table td:nth-child(7) {
+      font-weight: 600;
+    }
+
+    #return_table_container table td:nth-child(8) {
+      font-weight: 600;
+    }
+
+    #return_table_container table td span {
+      color: #a80909 !important;
+      background-color: #fdecec !important;
+    }
+
+    .Return_table_container table td h1 {
+      font-size: 12px;
+      font-weight: 600;
+      color: black;
+    }
+
+    .Return_table_container table td button {
+      background: rgba(51, 122, 183, 0.46);
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      padding: 5px 20px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .Return_table_container table td button a {
+      text-decoration: none;
+      color: black;
+    }
+
+    /* MY oredrs section style sheet */
+
+    .Kitchen_container {
+      background-color: #f7f6f9;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      padding: 20px;
+      height: 100vh;
+    }
+
+    .Kitchen_container .Kitchen_table_container {
+      background-color: white;
+      padding: 15px;
+      border-radius: 15px;
+      width: 100%;
+      height: 100%;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      margin: 10px;
+    }
+
+    .Kitchen_table_container .table_header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      padding: 10px;
+    }
+
+    .Kitchen_table_container .table_header h1 {
+      font-size: 16px;
+      text-transform: capitalize;
+    }
+
+    .Kitchen_table_container .table_header li {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .Kitchen_table_container .table_header li span:first-child {
+      color: black;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .Kitchen_table_container .table_header li span:last-child {
+      color: black;
+      font-size: 16px;
+    }
+
+    .Kitchen_table_container .tabel_section table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .tabel_section {
+      overflow-y: scroll;
+      height: 500px;
+      scrollbar-width: none;
+    }
+
+    .tabel_section table th {
+      font-size: 12px;
+      color: #656575;
+      text-align: left;
+      padding: 10px;
+      width: 15%;
+      font-weight: 300;
+    }
+
+    .tabel_section table th:nth-child(1) {
+      width: 10%;
+    }
+
+    .tabel_section table th:nth-child(2) {
+      width: 15%;
+    }
+
+    .tabel_section table th:nth-child(3) {
+      width: 15%;
+    }
+
+    .tabel_section table th:nth-child(4) {
+      width: 15%;
+    }
+
+    .tabel_section table tr td {
+      font-size: 12px;
+      color: #1a1919;
+      text-align: left;
+      padding: 10px;
+      font-weight: 300;
+      border-bottom: 1px solid rgba(163, 163, 163, 0.25);
+    }
+
+    .tabel_section table tr td:first-child {
+      font-weight: 500;
+    }
+
+    .tabel_section table tr:hover {
+      background-color: #337ab724;
+    }
+
+    .tabel_section table tr td li {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      list-style: none;
+    }
+
+    .tabel_section table tr td>span {
+      background-color: #9999991a;
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-weight: 400;
+    }
+
+    .tabel_section table tr td li input {
+      background-clip: content-box;
+      padding: 3px;
+      border-radius: 50%;
+      appearance: none;
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border-color: #fff500;
+      background-color: #fff500;
+      border: 2px solid #fff500;
+    }
+
+    table tr td .Kitchen_table_btn {
+      outline: none;
+      border: none;
+      display: block;
+      background-color: #84c93d;
+      padding: 5px 10px;
+      border-radius: 3px;
+    }
+
+    table tr td .Kitchen_table_btn:nth-child(2) {
+      background-color: #ff0000 !important;
+    }
+
+    table tr td .Kitchen_table_btn:nth-child(3) {
+      background-color: #006aff !important;
+    }
+
+    table tr td .Kitchen_table_btn a {
+      color: white;
+      text-decoration: none;
+      font-size: 12px;
+    }
+
+    .Kitchen_container .Kitchen_order_container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 15px;
+      width: 35%;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      margin: 10px;
+      height: 100%;
+    }
+
+    .Kitchen_order_header {
+      padding: 10px 0px;
+      display: flex;
+      gap: 3px;
+      justify-content: space-between;
+      align-items: start;
+    }
+
+    .Kitchen_order_header h1 {
+      font-size: 18px;
+      font-weight: 400;
+    }
+
+    #detail_view {
+      display: none;
+    }
+
+    .Order_detail_view {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      padding: 4px 10px;
+    }
+
+    .Order_detail_view .box_order {
+      flex-grow: 1;
+      border-radius: 10px;
+      background-color: #337ab75e;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0px 5px;
+    }
+
+    .Order_detail_view .box_order p {
+      text-align: left;
+      font-size: 10px;
+      color: black;
+      padding: 3px 0px;
+    }
+
+    .Order_detail_view .box_order span {
+      text-align: left;
+      font-size: 13px;
+      font-weight: 500;
+      color: #1c2a53;
+    }
+
+    .scroll_parent {
+      overflow-y: auto;
+      width: 100%;
+      height: 350px;
+    }
+
+    .row_sect_header h1 {
+      text-align: left;
+      font-size: 16px;
+      font-weight: 400;
+      color: black;
+      padding: 10px 0px;
+    }
+
+    .oredr_view {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .oredr_view h1 {
+      padding: 10px 0px;
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .oredr_view .row_items {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .row_items .row_inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .oredr_view .row_items .item_left {
+      padding: 10px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .oredr_view .row_items .item_left .item_img {
+      width: 50px;
+      height: 50px;
+      border-radius: 3px;
+    }
+
+    .oredr_view .row_items .item_left .item_img img {
+      width: 100%;
+      height: 100%;
+      border-radius: 3px;
+    }
+
+    .oredr_view .row_items .item_left .item_name {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .oredr_view .row_items .item_left .item_name h3 {
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .oredr_view .row_items .item_left .item_name p {
+      font-size: 12px;
+      font-weight: 400;
+      color: #656575;
+    }
+
+    .row_items .row_inner span {
+      font-size: 16px;
+      font-weight: 400;
+    }
+
+    .text_aria {
+      border: 1px solid #d0d5dd;
+      padding: 10px;
+      resize: none;
+      height: 40px;
+      overflow: auto;
+      width: 100%;
+    }
+
+    .text_aria p {
+      font-size: 12px;
+      color: #656575;
+    }
+
+    .order_view_title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .accept {
+      display: flex;
+      justify-content: end;
+      align-items: center;
+      padding: 20px;
+      gap: 15px;
+    }
+
+    .accept button {
+      background-color: #84c93d;
+      border: none;
+      outline: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+    }
+
+    .accept button:nth-child(2) {
+      background-color: #ec5a5a;
+    }
+
+    .accept button a {
+      text-decoration: none;
+      color: black;
+      font-weight: 500;
+    }
+
+    /* bill_payment style sheet */
+
+    .menu_section {
+      background-color: white;
+      padding: 15px;
+      border-radius: 15px;
+      width: 100%;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      margin: 10px;
+    }
+
+    .filter_header {
+      padding: 10px;
+      background-color: #f7f8f9;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .search_sect {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      background-color: white;
+      border: 1px solid #e7eaee;
+      padding: 10px;
+      width: 25%;
+      border-radius: 5px;
+    }
+
+    .search_sect i {
+      color: #64748b;
+      font-size: 14px;
+    }
+
+    .search_sect input {
+      outline: none;
+      border: none;
+      color: #64748b;
+      width: 100%;
+    }
+
+    .search_sect input::placeholder {
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .filter_parent {
+      display: flex;
+      gap: 10px;
+      padding: 8px 10px;
+      background-color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .filter_parent span {
+      color: #64748b;
+    }
+
+    .menu_table_container {
+      padding: 10px 0px;
+      overflow-y: scroll;
+      height: 450px;
+      scrollbar-width: none;
+    }
+
+    .menu_table_container table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    .menu_table_container table th {
+      color: #64748b;
+      font-size: 12px;
+      font-weight: 400;
+      padding: 10px;
+      width: 12.5%;
+      text-align: left;
+      border-bottom: 1px solid #d0d5dd;
+    }
+
+    .menu_table_container table th:nth-child(1) {
+      width: 8%;
+    }
+
+    .menu_table_container table th:nth-child(4) {
+      width: 18%;
+    }
+
+    .menu_table_container table th:nth-child(8) {
+      width: 24%;
+    }
+
+    .menu_table_container table td {
+      color: black;
+      font-size: 12px;
+      padding: 10px;
+      text-align: left;
+      border-bottom: 1px solid #d0d5dd;
+    }
+
+    .menu_table_container table td:nth-child(4) {
+      color: #64748b;
+    }
+
+    .menu_table_container table td:nth-child(6) {
+      font-weight: 600;
+    }
+
+    .menu_table_container table td:nth-child(7) {
+      font-weight: 600;
+    }
+
+    .menu_table_container table td .item_img {
+      width: 80px;
+      height: 80px;
+    }
+
+    .menu_table_container table td .item_img img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .menu_table_container table td span {
+      background-color: #ecfdf5;
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: 4px;
+      font-weight: 500;
+      color: #047857;
+    }
+
+    .menu_table_container table td h1 {
+      font-size: 12px;
+      font-weight: 600;
+      color: black;
+    }
+
+    .menu_table_container table td button {
+      background: rgba(51, 122, 183, 0.46);
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 5px 20px;
+    }
+
+    .menu_table_container table td button a {
+      text-decoration: none;
+      color: black;
+    }
+
+    .status_navcation {
+      display: flex;
+      padding: 20px 0px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .status_navcation li {
+      list-style: none;
+      flex-grow: 1;
+      text-align: center;
+      border: 1px solid rgb(244, 244, 244);
+    }
+
+    .status_navcation li a {
+      font-size: 14px;
+      text-align: center;
+      text-decoration: none;
+      padding: 10px;
+      width: 100%;
+      color: black;
+      display: block;
+    }
+
+    .status_navcation li a:focus {
+      background-color: #ffcb8e;
+    }
+
+    .parent_order_list {
+      height: 360px;
+      overflow-y: scroll;
+      scrollbar-width: none;
+    }
+
+    /* bill payment div css */
+    .outer_payment_bill_sec {
+      width: 100%;
+      display: none;
+    }
+
+    .payment_menu_section {
+      background-color: white;
+      padding: 15px;
+      border-radius: 15px;
+      width: 65%;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      margin: 10px;
+    }
+
+    .payment_main_header .payment_btn_parent button {
+      background-color: #047857;
+      outline: none;
+      border: none;
+      border-radius: 4px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      padding: 5px 10px;
+    }
+
+    .payment_main_header .payment_btn_parent button:last-child {
+      background-color: transparent;
+      border: 1px solid #d0d5dd;
+    }
+
+    .payment_main_header .payment_btn_parent button i {
+      color: white;
+      font-size: 14px;
+    }
+
+    .payment_main_header .payment_btn_parent button a {
+      text-decoration: none;
+      color: white;
+      font-size: 12px;
+    }
+
+    .payment_main_header .payment_btn_parent button:last-child i {
+      color: black;
+    }
+
+    .payment_main_header .payment_btn_parent button:last-child a {
+      color: black;
+    }
+
+    .menu_header_nav {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding-top: 20px;
+      border-bottom: 1px solid rgba(231, 234, 238, 1);
+    }
+
+    .nav_icon {
+      display: none;
+      padding: 20px;
+      overflow: hidden;
+      background-color: white;
+    }
+
+    .nav_icon a {
+      text-decoration: none;
+    }
+
+    .nav_icon a:last-child {
+      display: none;
+    }
+
+    #close_window_icon a i {
+      display: none;
+    }
+
+    .nav_icon a i {
+      font-size: 22px;
+      color: black;
+    }
+
+    .user_select_type {
+      display: flex;
+      justify-content: space-between;
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .user_input_select {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+      padding: 0px 10px;
+      /* margin: 10px 0px; */
+      /* border: 1px solid rgb(229, 229, 229); */
+    }
+
+    .user_input_select label {
+      font-size: 10px;
+      font-weight: bold;
+      padding-bottom: 3px;
+    }
+
+    .user_input_select a {
+      font-size: 11px;
+      display: block;
+      width: 100%;
+      color: black;
+      margin: 10px 0px;
+      text-decoration: none;
+      padding: 10px;
+      border: 1px solid rgb(232, 232, 232);
+      border-radius: 3px;
+      transition: 0.3s;
+    }
+
+    .user_input_select a:hover {
+      background-color: #e6bd81;
+      scale: 1.05;
+    }
+
+    #amount {
+      display: none;
+    }
+
+    #result {
+      display: none;
+    }
+
+    /* Page loader */
+
+    .loader_parent {
+      width: 100% !important;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.881);
+      visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .discount_option {
+      font-size: 10px;
+      display: block;
+      width: 100%;
+      color: black;
+      margin: 10px 0px;
+      padding: 10px;
+      font-weight: 400;
+      border: 1px solid rgb(232, 232, 232);
+      border-radius: 3px;
+    }
+
+    .loader {
+      width: 40px;
+      aspect-ratio: 1.154;
+      --_g: no-repeat radial-gradient(farthest-side, #e6bd81 90%, #0000);
+      background: var(--_g) 50% 0, var(--_g) 0 100%, var(--_g) 100% 100%;
+      background-size: 35% calc(35% * 1.154);
+      animation: l16 0.5s infinite;
+    }
+
+    .cpl_header {
+      margin: 15px 0px;
+    }
+
+    .cpl_header h3 {
+      font-size: 14px;
+    }
+
+    .cpl_items {
+      height: 130px;
+      overflow-y: scroll;
+    }
+
+    .complimentary_item_row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: space-between;
+      padding: 7px;
+      border: 2px solid rgba(239, 236, 236, 1);
+      /* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .complimentary_item_row p {
+      font-size: 10px;
+      font-weight: 600;
+      margin-bottom: 0px;
+    }
+
+    .discount_dropdown_container {
+      width: 70px;
+    }
+
+    .manual_order_count {
+      border: 1px dotted #e6bd81;
+      padding: 4px 8px;
+    }
+
+    .service_charge {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: end;
+    }
+
+    .service_charge input {
+      border: 1px solid rgb(88, 88, 88);
+      border-radius: 2px;
+      padding: 2px 8px;
+      width: 25%;
+    }
+
+    @keyframes l16 {
+
+      50%,
+      100% {
+        background-position: 100% 100%, 50% 0, 0 100%;
+      }
+    }
+
+    #btn_parent_section {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* counetr_button style */
+    .counter_button {
+      font-size: 11px;
+      display: block;
+      outline: none;
+      width: 100%;
+      color: black;
+      margin: 5px 0px;
+      border: 2px solid #f6d5ab;
+      border-radius: 3px;
+      box-shadow: none;
+      padding: 10px;
+    }
+
+    #discountValue1 {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin: 0;
+
+    }
+
+    #customer_name,
+    #paid_by,
+    #currency,
+    #deposit_counter_name {
+      font-size: 11px;
+      display: block;
+      outline: none;
+      width: 100%;
+      color: black;
+      margin: 5px 0px;
+      border: 2px solid #f6d5ab;
+      border-radius: 3px;
+      box-shadow: none;
+      padding: 10px;
+    }
+
+    .next_pre {
+      padding: 5px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: white;
+      border-radius: 10px;
+      /* position: fixed; */
+      z-index: 10;
+      width: 100%;
+    }
+
+    button {
+      margin: 0px;
+    }
+
+    .itm_button {
+      padding: 10px 12px;
+      border-radius: 50%;
+      background-color: transparent;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #e6bd81;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .itm_button:hover {
+      background-color: #e6bd81;
+      color: black;
+    }
+
+    .form-label {
+      margin-bottom: 0px;
+    }
+
+    .form-control {
+      font-size: 11px;
+      display: block;
+      outline: none;
+      width: 100%;
+      color: black;
+      margin: 5px 0px;
+      border: 2px solid #f6d5ab;
+      border-radius: 3px;
+      box-shadow: none;
+      padding: 10px;
+    }
+
+    #liveAlertPlaceholder {
+      position: relative;
+      top: 0px;
+      z-index: 100;
+    }
+
+    #btn-delete {
+      border: none;
+      background: transparent;
+      padding: 0px;
+      color: red;
+      padding-top: 5px;
+    }
+
+
+
+    @media only screen and (max-width: 1024px) {
+      .inner_container {
+        flex-wrap: wrap;
+      }
+
+      .body_container {
+        width: 100%;
+      }
+
+      .card_container {
+        flex-wrap: wrap;
+        width: 65%;
+        padding: 10px 0;
+      }
+
+      .card_inner_sec {
+        width: 32%;
+      }
+
+      .img_data {
+        padding: 5px;
+      }
+
+      .dish_name {
+        font-size: 12px;
+      }
+
+      .img_data p {
+        font-size: 10px;
+      }
+
+      .dish_price {
+        font-size: 12px;
+      }
+
+      .img_data p {
+        font-size: 10px;
+      }
+
+      .left_nav_bar {
+        width: 35%;
+        margin: 0px;
+        padding: 15px;
+      }
+
+      .label {
+        margin: 0px;
+        font-size: 12px;
+      }
+
+      .label_input {
+        border: 1px solid rgba(216, 216, 218, 1);
+        padding: 0px;
+        border-radius: 4px;
+      }
+
+      .order_list {
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid rgba(216, 216, 218, 1);
+      }
+
+      .order_list_image {
+        border-radius: 8px;
+        height: 45px;
+      }
+
+      .inner_order_list {
+        padding: 5px;
+        gap: 10px;
+      }
+
+      .order_list_image h3 {
+        font-size: 12px;
+      }
+
+      .order_list_image img {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+      }
+
+      .order_item_details {
+        font-size: 12px;
+        width: 50%;
+      }
+
+      .order_item_details h1 {
+        font-size: 12px;
+        padding: 7px 0px;
+        padding-top: 0px;
+      }
+
+      .comment_sec .comments_input {
+        border: 1px solid rgba(216, 216, 218, 1);
+        padding: 5px;
+        margin: 10px 0px;
+      }
+
+      .comment_sec .comments_input::placeholder {
+        font-size: 11px;
+      }
+
+      .order_counter {
+        gap: 10px;
+      }
+
+      .order_counter span {
+        font-size: 12px;
+        border-radius: 5px;
+        padding: 3px;
+      }
+
+      .bill_section {
+        padding: 0px;
+      }
+
+      .bill_amount_sec {
+        padding: 10px 5;
+      }
+
+      .bill_section .bill_amount_sec p {
+        font-size: 12px;
+      }
+
+      .total_bill_amount p {
+        font-size: 12px;
+      }
+
+      .select_order {
+        padding: 15px 10px;
+      }
+
+      .select_order button:first-child {
+        padding: 7px;
+        font-size: 10px;
+        border-radius: 3px;
+      }
+
+      .select_order button:last-child {
+        padding: 7px;
+        font-size: 10px;
+        border-radius: 3px;
+      }
+
+      /* first table */
+      .Return_container {
+        width: 100%;
+        overflow: auto;
+      }
+
+      .Return_Section {
+        width: 900px;
+        margin: 0 auto;
+      }
+
+      /* secound table */
+
+      .bill_history_section {
+        width: 900px;
+        margin: 0 auto;
+      }
+
+      /* 3rd table */
+      .kit_section {
+        width: 100%;
+        overflow: auto;
+      }
+
+      .Kitchen_container {
+        width: 900px;
+        margin: 0 auto;
+      }
+
+      /* 4th table */
+
+      .menu_section {
+        width: 900px;
+        margin: 0 auto;
+      }
+    }
+
+    @media only screen and (max-width: 768px) {
+      .nav_icon {
+        display: block;
+      }
+
+      .menu_list li a {
+        font-size: 7px;
+        padding: 5px 10px;
+      }
+
+      .inner_container {
+        flex-wrap: wrap;
+      }
+
+      .body_container {
+        width: 100%;
+      }
+
+      .card_container {
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 10px 0;
+      }
+
+      .card_inner_sec {
+        width: 30%;
+      }
+
+      .img_data {
+        padding: 5px;
+      }
+
+      .dish_name {
+        font-size: 12px;
+      }
+
+      .img_data p {
+        font-size: 10px;
+      }
+
+      .dish_price {
+        font-size: 12px;
+      }
+
+      .img_data p {
+        font-size: 10px;
+      }
+
+      .left_nav_bar {
+        width: 40%;
+        position: absolute;
+        right: -600px;
+        top: 0px;
+        z-index: 5;
+        height: 100%;
+        padding: 6px;
+        display: none;
+      }
+
+      .nav_icon a:last-child {
+        display: block;
+      }
+
+      .label {
+        margin: 0px;
+        font-size: 12px;
+      }
+
+      .label_input {
+        border: 1px solid rgba(216, 216, 218, 1);
+        padding: 0px;
+        border-radius: 4px;
+      }
+
+      .order_list {
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid rgba(216, 216, 218, 1);
+      }
+
+      .order_list_image {
+        border-radius: 8px;
+        height: 45px;
+      }
+
+      .inner_order_list {
+        padding: 5px;
+        gap: 10px;
+      }
+
+      .order_list_image h3 {
+        font-size: 12px;
+      }
+
+      .order_list_image img {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+      }
+
+      .order_item_details {
+        font-size: 12px;
+        width: 50%;
+      }
+
+      .order_item_details h1 {
+        font-size: 12px;
+        padding: 7px 0px;
+        padding-top: 0px;
+      }
+
+      .comment_sec .comments_input {
+        border: 1px solid rgba(216, 216, 218, 1);
+        padding: 5px;
+        margin: 10px 0px;
+      }
+
+      .comment_sec .comments_input::placeholder {
+        font-size: 11px;
+      }
+
+      .order_counter {
+        gap: 10px;
+      }
+
+      .order_counter span {
+        font-size: 12px;
+        border-radius: 5px;
+        padding: 3px;
+      }
+
+      .bill_section {
+        padding: 0px;
+      }
+
+      .bill_amount_sec {
+        padding: 10px 5;
+      }
+
+      .bill_section .bill_amount_sec p {
+        font-size: 12px;
+      }
+
+      .total_bill_amount p {
+        font-size: 12px;
+      }
+
+      .select_order {
+        padding: 15px 10px;
+      }
+
+      .select_order button:first-child {
+        padding: 7px;
+        font-size: 10px;
+        border-radius: 3px;
+      }
+
+      .select_order button:last-child {
+        padding: 7px;
+        font-size: 10px;
+        border-radius: 3px;
+      }
+
+      /* first table */
+      .Return_container {
+        width: 100%;
+        overflow: auto;
+      }
+
+      .Return_Section {
+        width: 1400px;
+      }
+
+      /* secound table */
+
+      .bill_history_section {
+        width: 1400px;
+      }
+
+      /* 3rd table */
+      .kit_section {
+        width: 100%;
+        overflow: auto;
+      }
+
+      .Kitchen_container {
+        width: 1400px;
+      }
+
+      /* 4th table */
+      .menu_container {
+        width: 100%;
+        overflow: auto;
+      }
+
+      .menu_section {
+        width: 1400px;
+      }
+
+      .menu_list {
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .header_list {
+        background-color: white;
+        width: 30%;
+        flex-direction: column;
+        position: absolute;
+        top: 40px;
+        left: -600px;
+      }
+
+      #close_window_icon a i {
+        display: block;
+      }
+    }
+
+    @media only screen and (max-width: 480px) {
+      .nav_icon {
+        display: block;
+      }
+
+      .nav_icon a:last-child {
+        display: block;
+      }
+
+      #close_window_icon a i {
+        display: block;
+      }
+
+      .menu_list {
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .menu_list li {
+        width: 47%;
+      }
+
+      .inner_container {
+        flex-wrap: wrap;
+      }
+
+      .body_container {
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .card_container {
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 10px 0;
+      }
+
+      .card_inner_sec {
+        width: 48%;
+      }
+
+      .img_data {
+        padding: 5px;
+      }
+
+      .left_nav_bar {
+        width: 100%;
+        position: absolute;
+        right: -600px;
+        top: 0px;
+        z-index: 5;
+        height: 100%;
+        padding: 6px;
+        display: none;
+      }
+
+      .Return_container {
+        width: 100%;
+        overflow: auto;
+      }
+
+      .Return_Section {
+        width: 1400px;
+      }
+
+      .bill_history_section {
+        width: 1400px;
+      }
+
+      .kit_section {
+        width: 100%;
+        overflow: auto;
+      }
+
+      .Kitchen_container {
+        width: 1400px;
+      }
+
+      .menu_section {
+        width: 1400px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="POS_Container">
+    <div class="loader_parent" id="loader_page">
+      <div class="loader"></div>
+    </div>
+    <div id="liveAlertPlaceholder"></div>
+    <div class="inner_container">
+      <div class="body_container" id="Order_container">
+        <div class="header_list" id="Navigation">
+          <ul class="menu_list">
+            <li>
+              <a href="javascript:void(0)" onclick="filterByFoodType('', 'All')">All</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" onclick="filterByFoodType('starter')">STARTER</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" onclick="filterByFoodType('drinks')">DRINKS</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" onclick="filterByFoodType('maincourse')">MAIN COURSE</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" onclick="filterByFoodType('desserts')">DESSERTS</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" onclick="filterByFoodType('beverages')">BEVERAGES</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)" onclick="filterByFoodType('soup')">SOUP</a>
+            </li>
+          </ul>
+        </div>
+        <div class="inner-body_container">
+          <div id="popup" class="popup">
+            <div class="popup-content">
+              <h2>Enter Password</h2>
+              <idv class="Pass_input_parent">
+                <input type="password" id="passwordInput" placeholder="Enter password" onkeyup="SubmitOnEnter(event)">
+                <span class="PasswordVisible">
+                  <i class="toggle-password fa fa-fw fa-eye-slash"></i>
+                </span>
+              </idv>
+              <div class="buttons">
+                <button id="cancelBtn" onclick="popupCancel()">Cancel</button>
+                <button id="submitBtn" onclick="popupsubmit()">Submit</button>
+              </div>
+            </div>
+          </div>
+          <div class="pcard_container">
+            <div class="body_header">
+              <div class="search">
+                <input type="search" onkeyup="searchOrders(this,event)" id="search_element"
+                  placeholder="Search product..." />
+                  <button id="clear-btn">&times;</button>
+              </div>
+            </div>
+            <div class="menu_container">
+              <div class="pcard_container_inner">
+                <div class="card_container" id="cardContainer"></div>
+              </div>
+              <div class="show_discount_container" id="Show_dist">
+                <p><span class="offer_title">Available Discount for</span><br><b id="ProductName"></b></p>
+                <p><span id="offer"></span></p>
+              </div>
+            </div>
+          </div>
+          <div class="left_nav_bar" id="PO_order_container">
+            <div class="order_header">
+              <div class="order_header_inner">
+                <h3>Order Details</h3>
+                <button id="lockButton" onclick="unlockBtn()">
+                  <i id="lockIcon" class="fa fa-lock"></i> Unlock
+                </button>
+              </div>
+              <div class="outer_order_sec">
+                <div class="inner_order_sec">
+                  <div class="inner_sub_sec"></div>
+                </div>
+                <div class="inner_order_sec">
+                  <div class="inner_sub_sec"></div>
+                </div>
+              </div>
+            </div>
+            <div class="parent_order_list" id="orderDetails"></div>
+            <div class="complementary_item" id="complementarySection" style="display: none">
+              <div class="cpl_header">
+                <h3>Complimentary Items</h3>
+              </div>
+              <div class="cpl_items" id="complimentaryItemsContainer">
+                <!-- Complimentary items will be inserted here dynamically -->
+              </div>
+            </div>
+            <div class="bill_section">
+              <div class="bill_amount_sec">
+                <p>Number of Items <span id="num_items">0</span></p>
+                <p>AED <span id="total_price_without_vat">0.00</span></p>
+              </div>
+              <div class="bill_amount_sec">
+                <p>VAT (5%)</p>
+                <p>AED <span id="total_price_with_vat">0.00</span></p>
+              </div>
+              <div class="discount">
+                <p>Discount</p>
+                <p>AED <span id="discount_p">0.00</span></p>
+              </div>
+
+              <div class="discount" id="hideDelivery">
+                <p>Delivery Charges</p>
+                <div class="service_charge">
+                  <p>AED</p>
+                  <input type="text" name="" id="deliveryCharges" />
+                </div>
+              </div>
+              <div class="total_bill_amount">
+                <p>Total</p>
+                <p>AED <span id="total_price"></span></p>
+              </div>
+              <div class="total_bill_amount">
+                <p>Converted Currency</p>
+                  <p style="
+  display: flex
+  ;
+      gap: 5px;
+      align-items: center;
+      font-size: 12px;
+      margin-bottom: 7px;
+                    ">
+                  <span id="converted-price"></span>
+                </p>
+              </div>
+              <div class="Cash_received discount" id="HideCR">
+                <p>Cash Received</p>
+                <div class="service_charge">
+                  <p><span id="Sc_currency"></span></p>
+                  <input type="text" name="" id="CashReceived" />
+                </div>
+              </div>
+
+              <div class="Balance_amount discount" id="hidebalance">
+                <p>Change</p>
+                <div class="service_charge">
+                  <p>
+                    <span id="Sc_currency2">AED</span>
+                    <span type="text" name="" id="changeAmount"></span>
+                  </p>
+                </div>
+              </div>
+
+
+            </div>
+            <div class="selectDrop_section">
+              <div class="user_input_select">
+                <label for="counter_user">Counter</label>
+                <div id="counter_user"></div>
+              </div>
+
+              <!-- <div class="user_input_select">
+                <label for="customer_name">Select Customer</label>
+                <select name="" id="customer_name"></select>
+              </div> -->
+              <div class="user_input_select">
+                <label for="exampleDataList" class="form-label">Select Customer</label>
+                <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Type to search...">
+                <datalist id="datalistOptions"></datalist>
+              </div>
+
+              <div class="user_input_select paided_by">
+                <label for="paid_by">Paid by</label>
+                <select name="" id="paid_by">
+                  <option value="Cash">Cash</option>
+                  <option value="Card">Card</option>
+                </select>
+              </div>
+
+              <div class="user_input_select">
+                <label for="deposit_counter_name">Deposit To</label>
+                <select name="" id="deposit_counter_name"></select>
+              </div>
+
+              <div class="user_input_select" id="append">
+                <label for="currency">Select Currency</label>
+                <select name="" id="currency" onchange="convertCurrency(`fromfchng`)">
+                </select>
+              </div>
+              <div class="select_order" id="btn_parent_section">
+                <button type="button" style="cursor: pointer" onclick="cancelOrder()">
+                  CancelOrder
+                </button>
+                <button type="button" style="cursor: pointer" onclick="sendOrder()">
+                  Bill
+                </button>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+    <input type="hidden" id="barcode_search_val" value="" />
+    <input type="hidden" id="barcode_item_name" value="" />
+
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://js.zohostatic.com/creator/widgets/version/1.0/widgetsdk-min.js"></script>
+  <script src="index.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script>
+    let ArrayOfPassword = [];
+    let cardDataList = [];
+    let allDiscounts = [];
+    let allRecords = []; // Array to hold all records
+    let allSelectedProductlist = [];
+    let totalItems = 0;
+    let totalPrice = 0.0;
+    const VAT_RATE = 0.05;
+    let currency_cont_val = "";
+    let selectedCustomer = "";
+    let selectedCustomerId = ""
+    let crc_val = "";
+    let selectedPaymentMethod = "Cash"
+    let finalDiscountArray = [];
+    let allProducts = [];
+    let deliveryChargeValue = 0.0;
+    let allCustomers = [];
+    let counterID = '';
+    let conversionRates = {};
+    let offers = document.getElementById("offer");
+    const eligibleComplimentaryItems = [];
+    let selectedDepositToCounterId = '';
+    let showComplimentaryItems = false;
+    let complimentaryItems = [];
+    let Cash_received = 0;
+    let UOM;
+    let selectedProductCases = [];
+    let selectedProductDiscounts = [];
+    let manualDiscount = [];
+    let Mdisctotal = 0;
+    let complementaryDirectry = [];
+    let isManagerAccessDisabled = true;
+    let isManagerAccount = getManagerAccess();
+    ZOHO.CREATOR.init().then(function (data) {
+      const customer_config = {
+        appName: "point-of-sale",
+        reportName: "All_Customers",
+        page: 1,
+        pageSize: 200,
+      };
+
+      let customer_parent = document.getElementById("datalistOptions");
+
+      function fetchAllCustomers(config) {
+        return ZOHO.CREATOR.API.getAllRecords(config).then(function (
+          cust_data
+        ) {
+          allCustomers = allCustomers.concat(cust_data.data);
+          // allCustomers = allCustomers.reverse();
+          // console.log(allCustomers, "all customers data");
+          if (cust_data.data.length < config.pageSize) {
+            processCustomers();
+          } else {
+            config.page++;
+            return fetchAllCustomers(config);
+          }
+        });
+      }
+      let orderDiscountHtml = ``;
+
+      const All_Unit_Masters_config = {
+        appName: "point-of-sale",
+        reportName: "All_Uom_unit_Conversions",
+        page: 1,
+        pageSize: 200,
+      };
+      ZOHO.CREATOR.API.getAllRecords(All_Unit_Masters_config).then(async function (res) {
+        console.log(res);
+        
+        if (res.data.length > 0) {
+          const disOptionsHtml = res.data.map(
+            (option) => `<option value="${option.Conversion_Rate}">${option.Unit_Name}</option>`
+          ).join("");
+
+          orderDiscountHtml += disOptionsHtml;
+        } else {
+          orderDiscountHtml = `<option value="0">No UOM available</option>`;
+        }
+        UOM = orderDiscountHtml;
+        // console.log(orderDiscountHtml);
+
+      });
+      // setTimeout(()=>{console.log(UOM);},3000);
+
+      document.getElementById("deposit_counter_name").addEventListener("change", function () {
+        // Get the selected option's value
+        selectedDepositToCounterId = this.value;
+        // console.log("selectedDepositToCounterId`:", selectedDepositToCounterId);
+      });
+
+
+
+      function processCustomers() {
+        allCustomers.forEach((cu) => {
+          // Create a new option element
+          let firstVal = document.getElementById('exampleDataList');
+          const cust_optionElement = document.createElement("option");
+          cust_optionElement.setAttribute("class", "opt_val");
+
+          // Set the value as the customer company name
+          cust_optionElement.value = cu.Company;
+
+          // Set a custom attribute to store the customer ID
+          cust_optionElement.setAttribute("data-customer-id", cu.ID);
+
+          // Display both customer name and phone number in the option's text
+          cust_optionElement.textContent = `${cu.Company} - ${cu.Mobile_No || "No Phone"}`;
+
+          // Check if the customer is "Walk-in Customer"
+          if (cu.Display_Name === "Walk-in Customer") {
+            // Set the selected attribute for "Walk-in Customer"
+            cust_optionElement.setAttribute("selected", "selected");
+            selectedCustomerId = cu.ID; // Set the selected customer ID
+          }
+
+          // Append the option element to the select dropdown
+          firstVal.setAttribute("value", cu.Company);
+          customer_parent.appendChild(cust_optionElement);
+        });
+      }
+
+      const paidByElement = document.getElementById("paid_by");
+
+      // Get the selected value when the dropdown changes
+      paidByElement.addEventListener("change", () => {
+        const selectedValue = paidByElement.value; // This will give you "Cash" or "Card"
+        // console.log("Selected Payment Method:", selectedValue);
+        selectedPaymentMethod = paidByElement.value; // This will give the current selected value
+        // console.log("Initial Selected Payment Method:", selectedPaymentMethod);
+        if(paidByElement.value === "Card") {
+          document.getElementById("hidebalance").style.visibility="hidden";
+          document.getElementById("CashReceived").value = "";
+          document.getElementById("changeAmount").innerText = 0;
+          document.getElementById("HideCR").style.visibility="hidden";
+          document.getElementById("hideDelivety").style.visibility="hidden";
+        }
+        else {
+          document.getElementById("hidebalance").style.visibility="visible";
+          document.getElementById("HideCR").style.visibility="visible";
+        }
+      });
+
+      // Alternatively, you can get the value at any time like this:
+
+
+
+
+      // Start fetching all customers
+      fetchAllCustomers(customer_config);
+      var initparams = ZOHO.CREATOR.UTIL.getInitParams();
+      // console.log(initparams.loginUser);
+
+      const counter_config = {
+        appName: "point-of-sale",
+        reportName: "All_Employees",
+        criteria: '(Email == "' + initparams.loginUser + '")',
+      };
+      // console.log(counter_config, "counter_config")
+      let user_counter = document.getElementById("counter_user");
+      ZOHO.CREATOR.API.getAllRecords(counter_config).then(function (
+        counter_data
+      ) {
+        // console.log(counter_data, "ounter_dataounter_dataounter_data")
+        counter_data.data.forEach((count_data_res) => {
+          // console.log(count_data_res.Counter.display_value);
+          let counter_btn = document.createElement("p");
+          counter_btn.setAttribute("class", "counter_button");
+          counter_btn.innerHTML = count_data_res.Counter.display_value;
+          counterID = count_data_res.Counter.ID
+          // console.log(counterID, "cccccccccccccccccbbbbbbbb")
+          const acctconfig = {
+            appName: "point-of-sale",
+            reportName: "Chart_of_Accounts",
+            criteria: '(Add_Counter == ' + counterID + ')'
+          }
+          getAllDepositToCounters(acctconfig);
+
+          // console.log(counter_btn);
+          user_counter.appendChild(counter_btn);
+        });
+
+
+        const all_Discount_Config_Object = {
+          appName: "point-of-sale",
+          reportName: "Discount_Promotions_lineitems_Report",
+          page: 1,
+          pageSize: 200,
+        };
+
+        function fetchAllDiscounts(config) {
+          return ZOHO.CREATOR.API.getAllRecords(config).then(function (data) {
+            allDiscounts = allDiscounts.concat(data.data);
+          });
+        }
+
+        fetchAllDiscounts(all_Discount_Config_Object);
+
+      });
+
+      const firstDropdown = document.getElementById('paid_by');
+      const secondDropdown = document.getElementById('deposit_counter_name');
+      async function getAllDepositToCounters(config) {
+        await ZOHO.CREATOR.API.getAllRecords(config).then(function (depositToCounterdata) {
+          if (firstDropdown.value == "Cash") {
+            const filter = depositToCounterdata.data.filter(obj => obj.Account_Name.includes("Cash"));
+            filter.forEach(e => {
+              selectedDepositToCounterId = e.ID;
+              const payType_option = document.createElement("option");
+              secondDropdown.innerHTML = ""
+              payType_option.innerText = e.Account_Name;
+              payType_option.value = e.ID;
+              secondDropdown.appendChild(payType_option);
+              secondDropdown.selectedIndex = 0;
+            });
+          }
+
+          firstDropdown.addEventListener("change", () => {
+            if (firstDropdown.value.includes("Cash")) {
+              const filter = depositToCounterdata.data.filter(obj => obj.Account_Name.includes("Cash"));
+              filter.forEach(e => {
+                selectedDepositToCounterId = e.ID;
+                const payType_option = document.createElement("option");
+                secondDropdown.innerHTML = ""
+                payType_option.innerText = e.Account_Name;
+                payType_option.value = e.ID;
+                secondDropdown.appendChild(payType_option);
+                secondDropdown.selectedIndex = 0;
+              });
+            }
+            else {
+              const filter = depositToCounterdata.data.filter(obj => obj.Account_Name.includes("Machine"));
+              filter.forEach(e => {
+                selectedDepositToCounterId = e.ID;
+                const payType_option = document.createElement("option");
+                secondDropdown.innerHTML = ""
+                payType_option.innerText = e.Account_Name;
+                payType_option.value = e.ID;
+                secondDropdown.appendChild(payType_option);
+                secondDropdown.selectedIndex = 0;
+              });
+            }
+          });
+        });
+      }
+      let counter_val = 1;
+      // Start fetching records from the first page
+      fetchRecords(counter_val);
+      const config_currency = {
+        appName: "point-of-sale",
+        reportName: "All_Currency",
+      };
+      let currency_cont = document.getElementById("currency");
+      ZOHO.CREATOR.API.getAllRecords(config_currency).then(function (cr_data) {
+        cr_data.data.forEach((a) => {
+          // Create option element and append to select dropdown
+          const optionElement = document.createElement("option");
+          optionElement.textContent = a.Currency;
+          currency_cont.appendChild(optionElement);
+          conversionRates[a.Currency] = a.Exchange_Rate;
+        });
+      });
+    });
+
+
+    function filterCustomers() {
+      // Get the value from the search input
+      let input = document.getElementById('customer_name_search');
+      let filter = input.value.toLowerCase();
+
+      // Get the select element and all its options
+      let select = document.getElementById('datalistOptions');
+      let options = select.getElementsByTagName('option');
+
+      // Loop through all options, and hide those that don't match the search query
+      for (let i = 0; i < options.length; i++) {
+        let txtValue = options[i].textContent || options[i].innerText;
+        if (txtValue.toLowerCase().indexOf(filter) > -1) {
+          options[i].style.display = "";
+        } else {
+          options[i].style.display = "none";
+        }
+      }
+    }
+
+    const cardContainer = document.getElementById("cardContainer");
+    const orderDetails = document.getElementById("orderDetails");
+    const numItemsElem = document.getElementById("num_items");
+    const totalPriceElem = document.getElementById("total_price");
+    const paidby = Paid_New_val;
+    const totalPriceWithoutVatElem = document.getElementById("total_price_without_vat");
+    const totalPriceWithVatElem = document.getElementById("total_price_with_vat");
+
+    const filterByFoodType = (foodType, type = "") => {
+      let filteredList = [];
+      // if (type === "All") {
+      //   filteredList.push(cardDataList);
+      // } else if (type === "search") {
+      //   filteredList = cardDataList.filter((item) =>
+      //     item.foodItemName.toLowerCase().includes(foodType.toLowerCase()) ||
+      //     item.foodSKU.toLowerCase().includes(foodType.toLowerCase())
+      //   );
+      // } else {
+      filteredList = cardDataList.filter(
+        (item) => item.foodItemName.toLowerCase() === foodType.toLowerCase()
+      );
+      // }
+      displayData(filteredList);
+    };
+    const displayData = (dataList) => {
+      // console.log("dd", dataList)
+      cardContainer.innerHTML = "";
+      dataList.forEach((cardData) => {
+        const card = document.createElement("div");
+        card.classList.add("card_inner_sec");
+
+        const cardContent = document.createElement("div");
+        cardContent.classList.add("card_content");
+
+        const imgSec = document.createElement("div");
+        imgSec.classList.add("img_sec");
+
+        const Item_ID = document.createElement("div");
+        imgSec.classList.add("Item_ID");
+
+        const img = document.createElement("img");
+        img.src = cardData.imageUrl;
+        img.alt = cardData.foodItemID;
+
+        const imgData = document.createElement("div");
+        imgData.classList.add("img_data");
+
+        const dishName = document.createElement("h3");
+        dishName.classList.add("dish_name");
+        dishName.textContent = cardData.foodItemName;
+
+        const stockStatus = document.createElement("p");
+        stockStatus.style.fontSize = "12px";
+        stockStatus.textContent = cardData.stock;
+
+        const dishPrice = document.createElement("h3");
+        dishPrice.classList.add("dish_price");
+        dishPrice.textContent = `AED ${cardData.foodPrice}`;
+
+        const foodDescription = document.createElement("p");
+        foodDescription.className = "dish_description";
+        foodDescription.textContent = cardData.foodDescription;
+
+        const foodType = document.createElement("input");
+        foodType.type = "hidden";
+        foodType.className = "dish_type";
+        foodType.value = cardData.foodType;
+        const FoodCost = document.createElement("input");
+        FoodCost.className = "FoodCost";
+        FoodCost.type = "hidden";
+        FoodCost.value = cardData.foodcost;
+
+        imgSec.appendChild(img);
+        imgData.appendChild(dishName);
+        imgData.appendChild(stockStatus);
+        imgData.appendChild(FoodCost);
+        imgData.appendChild(dishPrice);
+        imgData.appendChild(foodDescription);
+        imgData.appendChild(foodType);
+        cardContent.appendChild(imgSec);
+        cardContent.appendChild(imgData);
+        card.appendChild(cardContent);
+        cardContainer.appendChild(card);
+      });
+      // var imagealt = cardInnerSec.querySelector("img").getAttribute("alt");
+      document.dispatchEvent(new Event("domUpdated"));
+    };
+    var orderCounts = {};
+    document.addEventListener("domUpdated", function () {
+      var cardInnerSecs = document.querySelectorAll(".card_inner_sec");
+      cardInnerSecs.forEach(function (cardInnerSec) {
+        cardInnerSec.addEventListener("click", function () {
+          isManagerAccount = getManagerAccess();
+          document.getElementById("CashReceived").value = "";
+          document.getElementById("search_element").value = "";
+          displayData(allRecords);
+          const clearBtn = document.getElementById("clear-btn").style.display = "none";
+          toggleDiscountSection();
+          var name = cardInnerSec.querySelector(".dish_name").textContent.trim();
+          // var SKU = cardInnerSec.querySelector(".dish_name").textContent.trim();
+          var FoodID = cardInnerSec.querySelector("img").getAttribute("alt");
+          const existingProduct = allSelectedProductlist.find(
+            (item) => item.foodItemID === FoodID);
+          if (existingProduct) {
+            console.log(existingProduct,"existingProduct");
+            
+            // If the product is already in the list, increment the quantity
+            // document.getElementById("changeAmount").innerText=0;
+            existingProduct.quantityToBuy += 1;
+            // console.log(existingProduct.quantityToBuy,"dif");
+            updateTotal(existingProduct.foodItemID, existingProduct.foodPrice);
+          } else {
+            // If the product is not in the list, push it with quantity set to 1
+            allSelectedProductlist.push({
+              ...allProducts.find((item) => item.foodItemID === FoodID), // Find and spread the product object
+              quantityToBuy: 1, // Add the quantity field with initial value 1
+            });
+            let selcase=selectedProductCases.findIndex((item)=>item.itemID==FoodID);
+            if(selcase>-1)
+            {
+              selectedProductCases.splice(selcase,1);
+            }
+          }
+          var price = cardInnerSec
+            .querySelector(".dish_price")
+            .textContent.trim();
+          var imageSrc = cardInnerSec
+            .querySelector("img")
+            .getAttribute("src");
+          var imagealt = cardInnerSec.querySelector("img").getAttribute("alt");
+          var description = cardInnerSec
+            .querySelector(".dish_description")
+            .textContent.trim();
+          var item_ID_Data = cardInnerSec
+            .querySelector(".Item_ID")
+            .textContent.trim();
+          var foodType = cardInnerSec.querySelector(".dish_type").value;
+          var Cost = cardInnerSec.querySelector(".FoodCost").value;
+          // console.log(allSelectedProductlist,"listProduct");
+
+          // console.log(orderCounts, "all")
+          if (!orderCounts[imagealt]) {
+            orderCounts[imagealt] = 1;
+          } else {
+            orderCounts[imagealt]++;
+          }
+
+          if (total_price_without_vat.textContent == "") {
+            total_price_without_vat.textContent = "0";
+          }
+
+          total_price_without_vat.textContent = parseFloat(total_price_without_vat.textContent) + parseFloat(price.split(" ")[1]);
+
+          if (total_price_with_vat.textContent == "") {
+            total_price_with_vat.textContent = 0;
+          }
+
+          total_price_with_vat.textContent = (
+            parseFloat(total_price_without_vat.textContent) * 0.05
+          ).toFixed(2);
+
+          if (total_price.textContent == "") {
+            total_price.textContent = 0;
+          }
+
+          total_price.textContent = parseFloat(total_price_without_vat.textContent) + parseFloat(total_price_with_vat.textContent);
+
+          var bill_section = document.getElementsByClassName("bill_section");
+
+          var num_items = document.getElementById("num_items");
+          num_items.innerText = Object.keys(orderCounts).length;
+
+          var parentOrderList = document.querySelector(".parent_order_list");
+
+          var existingOrderItem = parentOrderList.querySelector(
+            `.order_list img[alt="${imagealt}"]`
+          );
+
+          //  .closest(".inner_order_list")
+
+          if (existingOrderItem) {
+            // console.log("item already existed");
+
+            const orderItem = Array.from(
+              document.querySelectorAll(".order_list")
+            ).find((row) => {
+              return (
+                row.querySelector(".item_name").textContent.trim() === name
+              );
+            });
+            // console.log(orderItem, "orderItem");
+            if (orderItem) {
+              // Target the input field for the order count in the found row
+              const inputField = orderItem.querySelector(
+                ".manual_order_count"
+              );
+
+              // Set a new value for the input field (for example, setting it to 5)
+              inputField.value = orderCounts[imagealt];
+
+              // console.log(
+              //   `Order count updated for ${name}: ${inputField.value}`
+              // );
+            } else {
+              // console.log(`Item with name ${name} not found.`);
+            }
+
+
+            const array = generateDiscountOptions(
+              name,
+              orderCounts[imagealt],
+              "John Doe"
+            );
+
+            finalAmountCalculation();
+          } else {
+            // console.log("new item added");
+
+            const array = generateDiscountOptions(
+              name,
+              orderCounts[imagealt],
+              "John Doe"
+            );
+
+            const isExist = selectedProductCases.find(item => item.itemID == imagealt);
+            if (!isExist) {
+              if (imagealt != undefined && imagealt != null) {
+                caseSelection(1, name, "pcs", imagealt);
+              }
+            }
+
+
+            //discount calculation
+            calculateDiscountSum(array);
+            let discountOptionsHtml = `<option value="0">Select Discount</option>`;
+            if (array.length > 0) {
+              // console.log(array,"arr")
+              disOptionsHtml = array
+                .filter(
+                  (option) =>
+                    option.percentageValue !== null &&
+                    !isNaN(option.percentageValue)
+                ) // Filter out null or NaN
+                .map(
+                  (option) =>
+                    `<option value="${option.percentageValue}" data-qty=${option.discountQty
+                    }>
+          ${option.displayName} - ${option.percentageValue}%
+        </option>`
+                )
+                .join("");
+              discountOptionsHtml = discountOptionsHtml + disOptionsHtml;
+            } else {
+              discountOptionsHtml = `<option value="0">No Discount available</option>`;
+            }
+
+            //
+
+
+            let orderDiscountHtml = `<option value="0">Select UOM</option>`;
+            const All_Unit_Masters_config = {
+              appName: "point-of-sale",
+              reportName: "All_Uom_unit_Conversions",
+              page: 1,
+              pageSize: 200,
+            };
+
+            let orderItemHtml = "";
+            if (isManagerAccount) {
+              orderItemHtml = `
+        <div class="order_list">
+      <div class="inner_order_list order_list_item">
+          <div class="order_item_details">
+              <div class="order_list_image">
+                  <h3 style="font-size:10px;">${allSelectedProductlist.length
+                }.</h3>
+                  <img style="display:none;" src="${imageSrc}" alt="${imagealt}" />
+              </div>
+              <h3 class="item_name" style="font-size:10px;" id="itemname" title="${name}">${name}</h3>
+              <h1 class="item_price" style="font-size:10px;" id="orgPrice1">${price}</h1>
+              <input style="font-size:12px;" type="hidden" class="order_desc" value='${description}' />
+              <input style="font-size:12px;" type="hidden" class="order_catagroy" value='${foodType}' />
+          </div>
+          <div class="order_counter">
+                          <div class="sub_order_item_details">
+                  <div class="manual_discount">
+                      <input type="number" id="discountValue1" data-name="${name}" data-itemid="${imagealt}" value="${price}" class="manualDisc"  min="0" onkeyup="handleDiscountValue(this.dataset.name,this.value,this.dataset.itemid)" disabled />
+                      <select id="discountType1"  class = "manual_cash_disc" data-name="${name}" data-itemid="${imagealt}" onchange="handleDiscountType(this.dataset.name,this.value,this.dataset.itemid)" disabled>
+                          <option value="percent">%</option>
+                          <option value="amount">AED</option>
+                      </select>
+                  </div>
+                  <div class="discount_dropdown_container">
+                      <select class="discount_dropdown" data-name="${name}" data-itemid="${imagealt}" onchange="discountSelection(this.dataset.name,this.value,event,this.dataset.itemid)" id="discount">
+                          ${discountOptionsHtml}
+                      </select>
+                  </div>
+              </div>
+              <input onchange="updateTotal('${imagealt}', '${price.split(' ')[1]}')" type="number" name="number" data-name="${name}" data-itemid="${imagealt}" class="manual_order_count" style="font-size:10px;width: 50px;" id="quantity_${imagealt}" value="${orderCounts[imagealt]}" />
+              <select id="discount_option" class="quantity_${imagealt}" data-name="${name}" data-itemid="${imagealt}" onchange="caseSelection(this.value,this.dataset.name,this.options[this.selectedIndex].innerHTML,this.dataset.itemid);updateTotal('${imagealt}', '${price.split(' ')[1]}')">${UOM}</select>
+              <p id="totalAmount_${imagealt}">${parseInt(orderCounts[imagealt] * price.split(' ')[1])}</p>
+            <div>
+              <button style="width:min-content;" id="btn-delete" data-iao="${imagealt}" value="${name}" onclick="removeCartItem(this.value,event,this.dataset.iao)">
+                  <i id="lockIcon" class="fa fa-trash"></i>
+            </button>
+           </div>
+          </div>
+      </div>
+       </div>
+        `;
+            } else {
+              orderItemHtml = `<div class="order_list">
+      <div class="inner_order_list order_list_item">
+          <div class="order_item_details">
+              <div class="order_list_image">
+                  <h3 style="font-size:10px;">${allSelectedProductlist.length
+                }.</h3>
+                  <img style="display:none;" src="${imageSrc}" alt="${imagealt}" />
+              </div>
+              <h3 class="item_name" style="font-size:10px;" id="itemname" title="${name}">${name}</h3>
+              <h1 class="item_price" style="font-size:10px;" id="orgPrice1">${price}</h1>
+              <input style="font-size:12px;" type="hidden" class="order_desc" value='${description}' />
+              <input style="font-size:12px;" type="hidden" class="order_catagroy" value='${foodType}' />
+          </div>
+          <div class="order_counter">
+                          <div class="sub_order_item_details">
+                  <div class="manual_discount">
+                      <input type="number" id="discountValue1" data-name="${name}" data-itemid="${imagealt}" value="" class="manualDisc"  min="0" onkeyup="handleDiscountValue(this.dataset.name,this.value,this.dataset.itemid)" />
+                      <select id="discountType1"  class = "manual_cash_disc" data-name="${name}" data-itemid="${imagealt}" onchange="handleDiscountType(this.dataset.name,this.value,this.dataset.itemid)">
+                          <option value="percent">%</option>
+                          <option value="amount">AED</option>
+                      </select>
+                  </div>
+                  <div class="discount_dropdown_container">
+                      <select class="discount_dropdown" data-name="${name}" data-itemid="${imagealt}" onchange="discountSelection(this.dataset.name,this.value,event,this.dataset.itemid)" id="discount">
+                          ${discountOptionsHtml}
+                      </select>
+                  </div>
+              </div>
+              <input onchange="updateTotal('${imagealt}', '${price.split(' ')[1]}')" type="number" name="number" data-name="${name}" data-itemid="${imagealt}" class="manual_order_count" style="font-size:10px;width: 50px;" id="quantity_${imagealt}" value="${orderCounts[imagealt]}" />
+              <select id="discount_option" class="quantity_${imagealt}" data-name="${name}" data-itemid="${imagealt}" onchange="caseSelection(this.value,this.dataset.name,this.options[this.selectedIndex].innerHTML,this.dataset.itemid);updateTotal('${imagealt}', '${price.split(' ')[1]}')">${UOM}</select>
+              <p id="totalAmount_${imagealt}">${parseInt(orderCounts[imagealt] * price.split(' ')[1])}</p>
+            <div>
+              <button style="width:min-content;" id="btn-delete" data-iao="${imagealt}" value="${name}" onclick="removeCartItem(this.value,event,this.dataset.iao)">
+                  <i id="lockIcon" class="fa fa-trash"></i>
+            </button>
+           </div>
+          </div>
+      </div>
+       </div>`;
+            }
+            document.getElementById("ProductName").innerHTML = name;
+            // toggleDiscountSection();
+
+            let CaseOption = document.getElementById("discount_option");
+
+
+            // Add this part in your script to handle the OK button press:
+
+            const deliveryChargesInput =
+              document.getElementById("deliveryCharges");
+
+            // Add an input event listener to capture the input value dynamically
+            deliveryChargesInput.addEventListener("input", function (event) {
+              // Get the current value of the input field
+              // console.log("input event listener called");
+              if (event.target.value != "") {
+                document.getElementById("CashReceived").value = "";
+                // console.log("input event listener called");
+                deliveryChargeValue = parseFloat(event.target.value);
+                // console.log("Current Delivery Charge:", deliveryChargeValue);
+
+                // Optionally, you can perform additional logic here
+                // For example, you can dynamically calculate totals or validate the input
+              } else {
+                deliveryChargeValue = 0;
+              }
+              reindexOrderCounts(allSelectedProductlist)
+              finalAmountCalculation();
+            });
+
+
+
+            document.addEventListener("input", function (event) {
+
+              if (event.target.classList.contains("manual_order_count") && event.target.value != '') {
+                const orderItem = event.target.closest(".inner_order_list");
+                const discount_pannel = event.target.closest(".discount_option");
+                const newOrderCount = parseInt(event.target.value); // Get the input value directly
+                const itemName = orderItem.querySelector(".item_name").textContent.trim();
+                const itemID = orderItem.querySelector("img").getAttribute("alt");
+                // Find the product in allSelectedProductlist based on the item name
+                const selectedProduct = allSelectedProductlist.find(
+                  (product) => product.foodItemID === itemID
+                );
+                let CaseOption = document.getElementById("discount_option");
+                if (selectedProduct) {
+                  document.getElementById("CashReceived").value = "";
+
+                  if (newOrderCount === 0) {
+                    delete orderCounts[selectedProduct.foodItemID]
+                    // Remove the row from the DOM
+                    event.target.closest(".order_list").remove();
+                    orderItem.remove();
+                    document.getElementById("CashReceived").value = "";
+                    offers.innerHTML = "";
+                    const caseIndex = selectedProductCases.findIndex(
+                      (product) => product.itemID === itemID
+                    );
+                    if (caseIndex > -1) {
+                      selectedProductCases.splice(caseIndex, 1); // Remove item from the list
+                    }
+                    const complementaryIndex = complimentaryItems.findIndex((product) => product.complimentaryItemId === itemID);
+
+                    if (complementaryIndex > -1) {
+                      complimentaryItems.splice(complementaryIndex, 1);
+                    }
+                  console.log(complimentaryItems, "compKK");
+                    const discountIndex = selectedProductDiscounts.findIndex((product) => product.discitemid === itemID);
+                    console.log(discountIndex,"findIndex");
+                    
+                    if (discountIndex > -1) {
+                      selectedProductDiscounts.splice(discountIndex, 1)
+                    }
+
+
+                    // const removeProduct = allSelectedProductlist.find(
+                    //   (product) => product.foodItemName === itemName
+                    // );
+                    // if(removeProduct){
+                    //   await delete orderCounts[removeProduct.foodItemID]
+                    // }
+
+
+
+                    // Remove the item from allSelectedProductlist
+                    const index = allSelectedProductlist.findIndex(
+                      (product) => product.foodItemID === itemID
+                    );
+                    if (index > -1) {
+                      allSelectedProductlist.splice(index, 1); // Remove item from the list
+                    }
+                    const manualIndex = manualDiscount.findIndex(
+                      (product) => product.itemID === itemID
+                    );
+                    if (manualIndex > -1) {
+                      manualDiscount.splice(manualIndex, 1); // Remove item from the list
+                    }
+
+                    reindexOrderCounts(allSelectedProductlist)
+                    finalAmountCalculation();
+
+                    // console.log(`Item "${itemName}" removed.`);
+                  } else {
+                    // Update the quantityToBuy with the new value
+                    selectedProduct.quantityToBuy = newOrderCount;
+                    // console.log(selectedProduct.quantityToBuy,"jsjvcs");
+
+
+                    orderCounts[selectedProduct.foodItemID] = newOrderCount;
+
+                    // Update orderCounts
+                    let newProductQty = 1;
+                    if (selectedProductCases.length > 0) {
+                      const products = selectedProductCases.find((pt) => pt.itemID == itemID);
+
+                      if (products) {
+                        newProductQty = newOrderCount * parseInt(products.case);
+                      }
+                    } else {
+                      newProductQty = newOrderCount;
+                    }
+
+                    reindexOrderCounts(allSelectedProductlist)
+                    finalAmountCalculation(); // Perform final amount calculation
+                  }
+                } else {
+
+                }
+              }
+            });
+
+            // Function to re-index order count
+            function reindexOrderCounts(listitem) {
+
+              const orderItems = document.querySelectorAll(".inner_order_list");
+              orderItems.forEach((orderItem, index) => {
+                const orderCountElement = orderItem.querySelector(".order_list_image h3");
+                if (listitem.length == 0) {
+                  orderCountElement.textContent = '0'; // Update the index
+                } else {
+                  orderCountElement.textContent = `${index + 1}.`;
+                }
+              });
+            }
+
+            finalAmountCalculation();
+            if (Object.keys(orderCounts).length == 0) {
+              bill_section[0].style.display = "none";
+            } else bill_section[0].style.display = "block";
+
+            parentOrderList.insertAdjacentHTML("beforeend", orderItemHtml);
+            var newItem = parentOrderList
+              .querySelector(`.order_list img[alt="${imagealt}"]`)
+              .closest(".order_list");
+
+            // newItem.scrollIntoView({ behavior: "smooth", block: "start" });
+
+          }
+          // applyDiscountAndCalculateTotal(1);
+          const cashrec = document.getElementById("CashReceived");
+          // console.log(cashrec);
+          // Add an input event listener to capture the input value dynamically
+          cashrec.addEventListener("input", function (crevent) {
+            // Get the current value of the input field
+            console.log("input event listener called");
+            if (crevent.target.value != "") {
+              Cash_received = parseFloat(crevent.target.value);
+              console.log(Cash_received);
+              // console.log("Current Delivery Charge:", deliveryChargeValue);
+            } else {
+              Cash_received = 0;
+            }
+            finalAmountCalculation();
+            convertCurrency();
+          })
+        });
+      });
+    });
+
+
+    function getValueBeforeDash(input) {
+      // Ensure the input is a valid string
+      if (typeof input === "string" && input.includes("-")) {
+        const valueBeforeDash = input.split("-")[0];
+
+        // Trim any trailing spaces from the extracted part
+        return valueBeforeDash.trim();
+      } else if (typeof input === "string") {
+        // If no dash is present, return the original input trimmed
+        return input.trim();
+      } else {
+        // If input is not a string, handle it (optional: return an empty string or error message)
+        return "";
+      }
+    }
+    function generateDiscountOptions(productName, quantity, customerName) {
+      try {
+        const discounts = allDiscounts;
+        const eligibleDiscounts = [];
+
+        // Clear offers only once at the beginning
+        offers.innerText = "";
+        document.getElementById("ProductName").innerHTML = productName;
+        discounts.forEach((discount) => {
+          const percentageValue = parseFloat(discount.Percentage);
+          const requisiteQuantity = parseInt(discount.Requisite_Qty, 10);
+
+          if (getValueBeforeDash(discount.Base_Item.display_value) === productName) {
+            const discountObj = {
+              discountType: "percentage",
+              percentageValue: percentageValue,
+              displayName: discount.Discount_Scope,
+              item_Name: productName,
+              itemID: discount.Base_Item.ID,
+              discountQty: requisiteQuantity,
+              awardQty: discount.Awarded_Qty
+            };
+
+            // Add different types of discounts
+            if (discount.Discount_Scope === "VIP Promo") {
+              appendOffer(`${discountObj.displayName} - <b>${parseInt(discountObj.percentageValue)}</b> %`);
+            }
+
+            if (discount.Discount_Scope === "Qty based Discount") {
+              appendOffer(`${discountObj.displayName} - Buy <b>${discountObj.discountQty}</b> - Get <b>${discountObj.percentageValue}</b> % Discount`);
+            }
+
+            if (discount.Discount_Scope === "Flat Discount") {
+              appendOffer(`${discountObj.displayName} - <b>${discountObj.percentageValue}</b> %`);
+            }
+
+            if (discount.Discount_Scope === "Complementary Qty") {
+              appendOffer(`${discountObj.displayName} - Buy ${discountObj.discountQty} <b>${discountObj.item_Name}</b>, Get <b>${parseInt(discountObj.awardQty)}</b>`);
+            }
+
+            eligibleDiscounts.push(discountObj);
+          }
+        });
+
+        // Call to add complementary discounts without resetting `offers`
+        complimentaryDiscount(productName, quantity);
+        return eligibleDiscounts;
+      } catch (error) {
+        console.log("Discount cache error", error);
+      }
+    }
+
+    function complimentaryDiscount(productName, quantity) {
+      try {
+        const discounts = allDiscounts;
+
+        discounts.forEach((discount) => {
+          const baseItem = discount.Base_Items.find((pd) => pd.display_value.includes(productName));
+          if (!baseItem) return;
+
+          let title = `${discount.Discount_Scope} Discount - Buy <br>`;
+          let offerContent = title;
+
+          discount.Base_Items.forEach((item) => {
+            offerContent += `<b>${parseInt(item.display_value.split("|")[1])} - ${item.display_value.split("-")[0]}</b><br>`;
+          });
+
+          if (quantity >= 1) {
+            discount.Reward_Items.forEach((reward) => {
+              offerContent += `Get <b>${parseInt(reward.display_value.split("|")[1])} - ${reward.display_value.split("-")[0]}</b>`;
+            });
+          }
+
+          appendOffer(offerContent);
+        });
+      } catch (error) {
+        console.log("Complementary discount error", error);
+      }
+    }
+
+    // Utility function to append offers
+    function appendOffer(content) {
+      let offerItem = document.createElement("p");
+      offerItem.setAttribute("class", "discount_option");
+      offerItem.innerHTML = content;
+      offers.appendChild(offerItem);
+    }
+
+
+    function fetchRecords(page) {
+      const config = {
+        appName: "point-of-sale",
+        reportName: "All_Items",
+        page: page,
+        pageSize: 200,
+      };
+      const publishKey = "5UtrnEGayRBG9MJCyUYketrTJXKFSAG8NtS3XfXOry74aXuVErsWzM3P2dX6B9GWmPkjypmuxb7ZOwmEbxnZCHuTKba34xF8WtAS";
+      ZOHO.CREATOR.API.getAllRecords(config).then(function (response) {
+        const cardDataList = response.data.map((item) => ({
+          imageUrl: "https://creator.zoho.com/rrcellars/point-of-sale/All_Items/Item_Image/image/" + item.Item_Image.slice(item.Item_Image.indexOf("=") + 1) +"?publishKey=" + publishKey,
+          foodItemName: item.Item_Name || "Unknown Item",
+          foodItemID: item.ID || "Unknown ItemID",
+          stock: item.Available_Stock || "in stock",
+          foodPrice: parseFloat(item.Rate),
+          foodDescription: item.Description || "No description available",
+          foodSKU: item.SKU || "SKU",
+          foodcost: parseFloat(item.Cost),
+        }));
+        // console.log(item);
+
+        cardDataList.reverse();
+        allRecords = allRecords.concat(cardDataList);
+        allProducts = allRecords;
+
+
+        if (response.data.length === 200) {
+          fetchRecords(page + 1);
+        } else {
+          displayData(allRecords);
+        }
+      });
+    }
+
+    function calculateDiscountSum(discountArray) {
+
+
+      // Initialize the array to hold the final result
+      var totalDiscount = 0;
+      var itemName = "";
+      let discountItemId = ''
+      // Loop through the discountArray
+      discountArray.forEach((discountItem) => {
+        // Extract the item name (assuming it's stored as `display_value`)
+        itemName = discountItem.item_Name;
+        discountItemId = discountItem.itemID
+
+        totalDiscount += discountItem.percentageValue;
+      });
+
+      finalDiscountArray.push({
+        itemName: itemName,
+        discountItemId: discountItemId,
+        totalDiscount: Number(totalDiscount) || 0,
+      });
+
+
+      // console.log(finalDiscountArray, "Final Discount Array");
+      // return finalDiscountArray; // Return the final array
+    }
+    async function discountSelection(name, discount, event, itemid) {
+      try {
+        document.getElementById("CashReceived").value = "";
+        const selectElement = event.target;
+        const selectedText = selectElement.selectedOptions[0].text;
+        const splitText = selectedText.split(" - ")[0];
+        let qty = selectElement.selectedOptions[0].getAttribute('data-qty');
+        if (qty != null && qty != "" && qty != undefined) {
+          qty = qty;
+        } else {
+          qty = 0;
+        }
+        const existingItem = selectedProductDiscounts.find(item => item.discitemid == itemid);
+        console.log(selectedProductDiscounts);
+
+        if (existingItem) {
+          existingItem.discount = parseInt(discount);
+          existingItem.type = splitText.toLowerCase() !== "select discount" ? splitText : "0";
+        } else {
+          if (name !== '' && discount !== '' && name !== null && name !== undefined) {
+            selectedProductDiscounts.push({ name: name, discount: parseInt(discount), type: splitText, discountQty: qty, discitemid: itemid });
+          }
+        }
+
+        console.log(selectedProductDiscounts, "seldisc");
+
+        const Supdiscount = document.querySelector(`.manual_discount input[data-name="${name}"]`);
+        Supdiscount.value = 0;
+        const exitItem = manualDiscount.findIndex(Dis => Dis.name == name);
+        console.log(exitItem, "ArryValue");
+        if (exitItem > -1) {
+          manualDiscount.splice(exitItem, 1)
+        }
+        finalAmountCalculation();
+
+      } catch (error) {
+        console.log("from cache", error);
+      }
+    }
+
+    function handleDiscountValue(name, value, itemid) {
+      try {
+        document.getElementById("CashReceived").value = "";
+        const myproduct = allSelectedProductlist.find((li) => li.foodItemID == itemid);
+        let DitType = document.querySelector(`.manual_cash_disc[data-itemid="${itemid}"]`).value;
+        let DiscountAmnt = document.querySelector(`.manualDisc[data-itemid="${itemid}"]`).value;
+        let Product_Quantity = document.querySelector(`.manual_order_count[data-itemid="${itemid}"]`).value;
+        let TotalCost = myproduct.foodcost * Product_Quantity;
+        let FinalAmount;
+
+        const existingItem = manualDiscount.find(item => item.itemID == itemid);
+        console.log(manualDiscount, "manualDiscount");
+        
+        if (existingItem) {
+          existingItem.value = parseFloat(value).toFixed(2);
+          if(DitType === "percent"){
+             existingItem.disAmnt = 0;
+          }
+          else if(DitType === "amount"){
+              existingItem.disAmnt = parseFloat(value).toFixed(2);
+          } 
+          // if (value) {
+          //   existingItem.value = parseFloat(value).toFixed(2);
+          // }
+        } else {
+          if (name != '' && name != null && name != undefined) {
+            if(DitType === "percent"){
+
+              manualDiscount.push({ name: name, value: value ? parseFloat(value) : 0, dis_type: DitType, itemID: itemid, disAmnt: 0});
+            }
+            else if(DitType === "amount"){
+
+            manualDiscount.push({ name: name, value: value ? parseFloat(value) : 0, dis_type: DitType, itemID: itemid, disAmnt: value ? parseFloat(value) : 0});
+            } 
+          }
+          console.log(manualDiscount, "manu");
+
+        }
+        if (DitType === "percent") {
+          let TotalPrice = myproduct.foodPrice * Product_Quantity;
+          FinalAmount = TotalPrice * DiscountAmnt / 100;
+        } else {
+          FinalAmount = DiscountAmnt;
+        }
+        if (TotalCost <= FinalAmount) {
+          console.log(TotalCost, "FoodCost");
+          console.log(FinalAmount, "FinalAmount Discount")
+          alert("The Discount is more than Product Cost price");
+
+          const ExitDiscount = manualDiscount.findIndex(Disc => Disc.itemID == itemid);
+          console.log(ExitDiscount, "exit");
+          if (ExitDiscount > -1) {
+            manualDiscount.splice(ExitDiscount, 1);
+          }
+          let DiscountAmntField = document.querySelector(`.manualDisc[data-itemid="${itemid}"]`);
+          DiscountAmntField.value = 0;
+          finalAmountCalculation();
+        }
+        const index = selectedProductDiscounts.findIndex(item => item.discitemid == itemid);
+        if (index > -1) {
+          selectedProductDiscounts.splice(index, 1)
+        }
+        const discountDropdown = document.querySelector(`select.discount_dropdown[data-itemid="${itemid}"]`);
+        discountDropdown.value = "0";
+        finalAmountCalculation()
+        // handleDiscountType(name, value, itemid);
+      } catch (error) {
+        console.log("handle discount error", error)
+      }
+    }
+    function handleDiscountType(name, value, itemid) {
+      try {
+        let disval = document.querySelector(`.manualDisc[data-itemid="${itemid}"]`).value;
+        let DitType = document.querySelector(`.manual_cash_disc[data-itemid="${itemid}"]`).value;
+        document.getElementById("CashReceived").value = "";
+        const existingItem = manualDiscount.find(item => item.itemID == itemid);
+        if (existingItem) {
+          console.log(DitType,"DitType");
+
+          existingItem.dis_type = value;
+          if(DitType === "percent"){
+
+            existingItem.value = disval;
+            existingItem.disAmnt = 0;
+            
+            }
+            else if(DitType === "amount"){
+
+              existingItem.disAmnt = disval;
+            
+            } 
+        } else {
+          if (name != '' && name != null && name != undefined) {
+            manualDiscount.push({ name: name, dis_type: DitType, itemID: itemid });
+            
+            // if(DitType === "percent"){
+
+            //   manualDiscount.push({ name: name,  dis_type: DitType, itemID: itemid});
+            //   }
+            //   else if(DitType === "amount"){
+
+            //   manualDiscount.push({ name: name, dis_type: DitType, itemID: itemid});
+            //   } 
+          }
+        }
+        const discountDropdown = document.querySelector(`select.discount_dropdown[data-itemid="${itemid}"]`);
+        discountDropdown.value = "0";
+        finalAmountCalculation()
+      } catch (error) {
+        console.log("handle discount error > ", error)
+      }
+    }
+    let unit = "";
+    async function caseSelection(qty, name, UnitData, itemid) {
+      try {
+        document.getElementById("CashReceived").value = "";
+        const existingItem = selectedProductCases.find(item => item.itemID == itemid);
+        if (existingItem) {
+          existingItem.case = qty;
+          existingItem.unit = UnitData;
+          console.log(existingItem,"etsttt");
+          
+        } else {
+          if (name != '' && qty != '' && name != null && name != undefined) {
+            selectedProductCases.push({ name: name, case: qty, unit: UnitData, itemID: itemid });
+          }
+        }
+
+        await finalAmountCalculation();
+      } catch (error) {
+        console.log("chache error>>", error);
+
+      }
+    }
+
+    async function removeCartItem(item, event, id) {
+      try {
+        document.getElementById("CashReceived").value = "";
+        delete orderCounts[id];
+
+        const index = allSelectedProductlist.findIndex(
+          (product) => product.foodItemID === id
+        );
+        if (index > -1) {
+          allSelectedProductlist.splice(index, 1);
+        }
+        if (allSelectedProductlist.length > 0) {
+          offers.innerHTML = "";
+        }
+        const removeDiscount = selectedProductDiscounts.findIndex((dis) => dis.discitemid == id);
+        if(removeDiscount > -1){
+          selectedProductDiscounts.splice(removeDiscount, 1);
+          console.log(removeDiscount,"removeDis");
+          
+        }
+        const removeCaseSel = selectedProductCases.findIndex((SelPC) => SelPC.itemID == id);
+        if(removeCaseSel > -1){
+          selectedProductCases.splice(removeCaseSel, 1);
+          console.log(removeCaseSel,"removeDis");
+        }
+        const orderItem = event.target.closest(".inner_order_list");
+        if (orderItem) {
+          event.target.closest(".order_list").remove();
+          orderItem.remove();
+        }
+        await finalAmountCalculation();
+        await reindexOrderCounts(allSelectedProductlist);
+        if (allSelectedProductlist.length == 0) {
+          complimentaryItems = [];
+        }
+      } catch (error) {
+        console.log("cache error >", error)
+      }
+    }
+
+
+    function updateTotal(imagealt, unitPrice) {
+      try {
+        let quantity = document.getElementById(`quantity_${imagealt}`).value;
+        const caseQty = document.querySelector(`.quantity_${imagealt}`).value ?? 1;
+        quantity = parseInt(quantity * caseQty);
+        const total = parseInt(quantity * unitPrice);
+        document.getElementById(`totalAmount_${imagealt}`).textContent = ` ${total}`;
+        document.getElementById("changeAmount").innerText = 0;
+        console.log(document.getElementById("changeAmount").innerHTML,"sjhfsknfisn");
+      } catch (error) {
+        console.log("cache error ", error)
+      }
+    }
+
+    function reindexOrderCounts(listitem) {
+      const orderItems = document.querySelectorAll(".inner_order_list");
+      orderItems.forEach((orderItem, index) => {
+        const orderCountElement = orderItem.querySelector(".order_list_image h3");
+        if (listitem.length == 0) {
+          orderCountElement.textContent = '0'; // Update the index
+        } else {
+          orderCountElement.textContent = `${index + 1}.`;
+        }
+      });
+    }
+    function toggleDiscountSection() {
+      const discountValueInputs = document.querySelectorAll(".manualDisc");
+      const discountTypeSelects = document.querySelectorAll(".manual_cash_disc");
+
+      // Loop through all input elements and toggle disabled state
+      discountValueInputs.forEach((input) => {
+        if (isManagerAccessDisabled) {
+          input.setAttribute("disabled", "disabled");
+        } else {
+          input.removeAttribute("disabled");
+        }
+      });
+
+      // // Loop through all select elements and toggle disabled state
+      discountTypeSelects.forEach((select) => {
+        if (isManagerAccessDisabled) {
+          select.setAttribute("disabled", "disabled");
+        } else {
+          select.removeAttribute("disabled");
+        }
+      });
+    }
+
+    function getManagerAccess() {
+      return isManagerAccessDisabled;
+    }
+    function popupsubmit() {
+      // if (passwordInput.value == ""||passwordInput.value == null) {
+      //   passwordInput.style.border = "2px solid red";
+      // }
+      let orderDetails = document.querySelector("#orderDetails");
+      const configPassword = {
+        appName: "point-of-sale",
+        reportName: "All_Passkeys",
+      };
+
+      ZOHO.CREATOR.API.getAllRecords(configPassword).then(function (password_data) {
+        password_data.data.forEach(e => {
+          ArrayOfPassword.push(e.Passkey);
+
+        });
+        const passwordInput = document.getElementById("passwordInput").value;
+        const manualDisc = document.querySelectorAll(".manualDisc");
+        const manualCashofDis = document.querySelectorAll(".manual_cash_disc");
+        if (ArrayOfPassword.includes(passwordInput)) {
+          isManagerAccessDisabled = false;
+          document.getElementById("passwordInput").style.border="2px solid green"
+          document.getElementById('popup').style.display = 'none';
+          document.getElementById('lockIcon').classList.add('fa-unlock');
+          toggleDiscountSection();
+        }
+        else {
+
+          document.getElementById("passwordInput").style.border="2px solid red"
+          // document.getElementById('lockIcon').classList.remove('fa-unlock');
+          document.getElementById('lockIcon').classList.add('fa-lock');
+          isManagerAccessDisabled = true;
+          toggleDiscountSection();
+        }
+      });
+    }
+
+    async function finalAmountCalculation() {
+      try {
+        // console.log("serial",allSelectedProductlist.length)
+        // console.log("prd",allSelectedProductlist)
+        const allSelectedProducts = allSelectedProductlist;
+        const cases = document.getElementById("discount_option");
+        let totalAmountWithVat = 0; // Total amount including VAT
+        let totalDiscountAmount = 0; // Total discount amount
+        let totalVatAmount = 0; // Total VAT amount
+        let totalQunatityOfSelectedProduct = 0;
+        Mdisctotal = 0;
+        // console.log("manager",isManagerAccount);
+        // if(!isManagerAccount){
+        //   setTimeout(()=>{
+        toggleDiscountSection();
+        // },1000)
+        // }
+        allSelectedProductlist.forEach(async item => {
+          // console.log(item);
+
+          // console.log(item.quantityToBuy,"topay");
+
+          if (item.quantityToBuy > 1) {
+            await updateTotal(item.foodItemID, item.foodPrice)
+          }
+        })
+
+        let comp = await Promise.all(allSelectedProductlist.map(item =>
+          checkComplimentaryThings(item.foodItemName, item.quantityToBuy, item.foodItemID)
+        ));
+
+        let newComplimentary = [];
+        let flatComp = comp.flat();
+
+        // console.log("comp", flatComp);
+
+        if (flatComp.length > 0) {
+          flatComp.forEach(returnedItem => {
+            let existingItem = newComplimentary.find(
+              item => item.complimentaryName === returnedItem.complimentaryName
+            );
+
+            if (existingItem) {
+              existingItem.complimentaryQuantity = returnedItem.complimentaryQuantity;
+            } else {
+              newComplimentary.push(returnedItem);
+            }
+          });
+        }
+        if (newComplimentary.length > 0) {
+          complimentaryItems = [];
+          await complimentaryItems.push(newComplimentary)
+        } else {
+          complimentaryItems = [];
+        }
+
+        if (allSelectedProductlist.length > 0) {
+          await displayComplimentaryItems(newComplimentary);
+        } else {
+          await displayComplimentaryItems([]);
+          offers.innerText = "";
+          document.getElementById("ProductName").innerText = "";
+        }
+        // console.log("pr", allSelectedProducts);
+        // console.log("manual", manualDiscount);
+        // console.log("discount", selectedProductDiscounts);
+        // console.log("cases", selectedProductCases)
+        allSelectedProducts.forEach((product) => {
+          // console.log(product,"produt");
+
+
+          // 1. Calculate subtotal for the product (price * quantity)
+          let newCaseQty = product.quantityToBuy;
+          if (selectedProductCases.length > 0) {
+            const totalCases = selectedProductCases.filter(item => item.itemID === product.foodItemID && item.case > 1)
+              .map(x => x.case);
+            const casesSum = totalCases.length > 0 ? totalCases.reduce((a, b) => a + b, 0) : 1;
+            newCaseQty *= casesSum;
+          }
+
+          const productSubtotal = product.foodPrice * newCaseQty;
+          totalQunatityOfSelectedProduct += product.quantityToBuy;
+          totalAmountWithVat += productSubtotal; // This is the total with VAT included
+
+          // Calculate automatic discounts
+          const discountObj = selectedProductDiscounts.find((discount) => discount.name === product.foodItemName);
+          let discountPercentage = 0;
+          if (discountObj) {
+            if (discountObj.type == "Flat Discount") {
+              discountPercentage = discountObj.discount;
+            } else if (discountObj.type == "Qty based Discount" && newCaseQty >= discountObj.discountQty) {
+              discountPercentage = discountObj.discount;
+            }
+          }
+          // Additional manual discount calculation
+          
+          const manualDisObj = manualDiscount.find((manual) => manual.itemID === product.foodItemID);
+          let manualDiscountAmount = 0;
+          // console.log(manualDisObj,"sdv");
+
+          if (manualDisObj) {
+            if (manualDisObj.dis_type.toLowerCase() === "percent" && manualDisObj.value > 0) {
+              discountPercentage += manualDisObj.value;
+              Mdisctotal += (discountPercentage / 100) * productSubtotal;
+            } else if (manualDisObj.dis_type.toLowerCase() === "amount" && manualDisObj.value > 0) {
+              manualDiscountAmount = parseFloat(manualDisObj.value) || 0; // Handle cases where manual discount value is invalid
+              Mdisctotal += manualDiscountAmount;
+              console.log(manualDiscountAmount,"manualDiscountAmount");
+              console.log(manualDisObj,"manualDisObj");
+              
+            }
+          }
+
+          // Ensure discounts do not exceed product subtotal
+          let totalDiscountForProduct = (discountPercentage / 100) * productSubtotal + manualDiscountAmount;
+          // console.log(Mdisctotal,"sijdvfiuuyb8yyyyyyyyyyyyyyyyyyyyyyyy");
+
+
+
+          // Prevent discount from exceeding subtotal
+
+          // if (totalDiscountForProduct > productSubtotal) {
+          //   totalDiscountForProduct = productSubtotal; 
+          //   alert("The Discount is more than Product price")
+          // }
+
+          // Calculate VAT on the discounted subtotal
+          const discountedSubtotal = productSubtotal - totalDiscountForProduct;
+          const vatAmount = discountedSubtotal * (5 / 105);
+
+          totalDiscountAmount += totalDiscountForProduct;
+          totalVatAmount += vatAmount;
+        });
+
+        const result = {
+          totalAmountWithVat: totalAmountWithVat.toFixed(2),
+          totalDiscountAmount: totalDiscountAmount.toFixed(2),
+          totalAmountAfterDiscount: (totalAmountWithVat - totalDiscountAmount).toFixed(2),
+          vatAmount: totalVatAmount.toFixed(2),
+        };
+
+        // Final bill amount including delivery charge
+        const finalPriceToPay = (totalAmountWithVat - totalDiscountAmount + deliveryChargeValue).toFixed(2);
+
+        // Prevent negative final price
+        const safeFinalPrice = finalPriceToPay < 0 ? 0 : finalPriceToPay;
+
+        // Update UI elements with the calculated amounts
+        document.getElementById("total_price_without_vat").textContent = totalAmountWithVat.toFixed(2); // Total with VAT
+        document.getElementById("total_price_with_vat").textContent = totalVatAmount.toFixed(2); // VAT amount
+        document.getElementById("discount_p").textContent = totalDiscountAmount.toFixed(2); // Total discount
+        document.getElementById("total_price").textContent = safeFinalPrice; // Final amount to pay
+
+        let finalConvetAmnt = document.getElementById("converted-price").textContent; // Final amount to pay
+        const splitAmnt = parseFloat(finalConvetAmnt.split(" ")[1]);
+        const splitCurr = finalConvetAmnt.split(" ")[0];
+        //  console.log(splitCurr,"slipt Currency");
+
+        document.getElementById("Sc_currency").innerText = splitCurr;
+        document.getElementById("Sc_currency2").innerText = splitCurr;
+        //  console.log(splitAmnt,"sdij");
+
+        // Handle cash received and change calculation
+        if (Cash_received != null && Cash_received > 0 && Cash_received > splitAmnt) {
+          chng = Cash_received - splitAmnt;
+          document.getElementById("changeAmount").innerText = chng.toFixed(2);
+        } else {
+          document.getElementById("changeAmount").innerText = 0;
+        }
+
+        if (newComplimentary.length > 0) {
+          let totalComplimentaryQuantity = 0;
+
+          newComplimentary.forEach((item) => {
+            totalComplimentaryQuantity += item.complimentaryQuantity;
+          });
+          document.getElementById("num_items").textContent = totalQunatityOfSelectedProduct + totalComplimentaryQuantity;
+        } else {
+          document.getElementById("num_items").textContent = totalQunatityOfSelectedProduct;
+        }
+        convertCurrency("fromfamnt");
+        console.log(selectedProductDiscounts,"sel");
+        
+        return result;
+      } catch (error) {
+        console.log("cache error", error);
+      }
+    }
+
+
+    async function displayComplimentaryItems(complimentaryItems) {
+      try {
+        
+        complimentaryItems = complimentaryItems.filter((item) => item.complimentaryQuantity!= 0);
+        console.log(complimentaryItems, "compitms");
+        await complimentaryItems.forEach((ci, i) => {
+          if (ci.complimentaryQuantity == 0) {
+            complimentaryItems.splice(i, 1);
+          }
+        })
+        const complimentarySection = document.getElementById(
+          "complementarySection"
+        );
+        const complimentaryItemsContainer = document.getElementById(
+          "complimentaryItemsContainer"
+        );
+        let productName, qty, type;
+        let comQty = 0;
+        const itemName = await complimentaryItems.every(item => {
+          const product = allSelectedProductlist.filter(i => i.foodItemID == item.complimentaryItemId);
+          if (product.length > 0) {
+            comQty = item.complimentaryQuantity;
+          } else if (item.type == "CI") {
+            qty = item.complimentaryQuantity;
+          }
+          type = item.type
+        })
+
+
+        complimentaryItemsContainer.innerHTML = "";
+        // console.log("compqty",comQty,qty)
+        if (complimentaryItems.length > 0 && (comQty > 0 || (type == "CI" && qty > 0))) {
+          complimentarySection.style.display = "block";
+          await complimentaryItems.forEach((item) => {
+            const itemDiv = document.createElement("div");
+            itemDiv.classList.add("complimentary_item_row");
+            itemDiv.innerHTML = `
+             <p>${item.complimentaryName}</p>
+             <p>  Quantity: ${item.complimentaryQuantity}</p> `;
+
+            complimentaryItemsContainer.appendChild(itemDiv);
+          });
+        } else {
+          complimentarySection.style.display = "none";
+        }
+      } catch (error) {
+        console.log("cache error>", error)
+      }
+    }
+
+
+
+    function checkComplimentaryThings(productName, quantity, productid) {
+
+      let qty = quantity;
+      if (selectedProductCases.length > 0) {
+        const newData = selectedProductCases.find((item) => item.itemID == productid);
+        if (newData) {
+          quantity = parseInt(newData.case) * quantity;
+        }
+      }
+
+      const discounts = allDiscounts;
+      const isElegibleQty = [];
+      const isElegibleItem = [];
+      discounts.forEach((discount) => {
+
+        if (discount.Discount_Scope == "Complementary Qty") {
+          const reqQuantity = parseFloat(discount.Requisite_Qty);
+          const awardedQuantity = parseFloat(discount.Awarded_Qty);
+          const itemName = discount.Base_Item.display_value.split("-")[0].trim();
+          const bitemID = discount.Base_Item.ID;
+
+          if (bitemID === productid) {
+            const multiple = Math.floor(quantity / reqQuantity);
+            const totalComplimentaryQuantity = multiple * awardedQuantity;
+            isElegibleQty.push({
+              complimentaryItemId: discount.Base_Item.ID,
+              complimentaryQuantity: totalComplimentaryQuantity,
+              complimentaryName: itemName,
+              productQty: quantity,
+              type: "CQ"
+            });
+          }
+        }
+        productitem = [];
+        var final = [discount].every((item) => {
+          const baseItem = item.Base_Items.find((pd) => pd.display_value.includes(productid));
+          if (baseItem) {
+            productitem.push(item);
+          }
+        });
+        if (discount.Discount_Scope === "Complementary Item") {
+
+          if (complementaryDirectry.length == 0) {
+            complementaryDirectry = discount;
+          }
+
+          // Check if the discount is eligible by evaluating all base items
+          const isEligible = discount.Base_Items.every((baseItem) => {
+            const [productDetails, requisiteQuantity] = baseItem.display_value.split("|").map((item) => item.trim());
+            const itemName = productDetails.split("-")[0].trim();
+            const itemID = productDetails.split("-")[2].trim();
+            const reqQuantity = parseFloat(requisiteQuantity);
+
+            // Find the selected product in the user's cart
+            const selectedProduct = allSelectedProductlist.find(
+              (product) => product.foodItemName === itemName
+            );
+
+            // Ensure the product exists and its quantity meets the requisite quantity
+            return selectedProduct && selectedProduct.quantityToBuy >= reqQuantity;
+          });
+
+          if (isEligible) {
+            let minMultiple = Infinity;
+
+            // Calculate the minimum multiple for the complimentary item
+            discount.Base_Items.forEach((baseItem) => {
+              const [productDetails, requisiteQuantity] = baseItem.display_value.split("|").map((item) => item.trim());
+              const itemName = productDetails.split("-")[0].trim();
+              const itemID = productDetails.split("-")[2].trim();
+              const reqQuantity = parseFloat(requisiteQuantity);
+
+              const selectedProduct = allSelectedProductlist.find(
+                (product) => product.foodItemName === itemName
+              );
+
+              const multiple = Math.floor(selectedProduct.quantityToBuy / reqQuantity);
+
+              // Get the minimum multiple across all base items
+              minMultiple = Math.min(minMultiple, multiple);
+            });
+
+            if (minMultiple > 0) {
+              let rewardItemId = '';
+              discount.Reward_Items.forEach((rewardItem) => {
+                const [rewardItemName, awardedQtyPart] = rewardItem.display_value.split("|").map((item) => item.trim());
+                // rewardItemId = rewardItem.ID;
+                let splitVal = rewardItem.display_value.split("-");
+                let splitVal2 = splitVal[2].split("|");
+                let splitVal3 = splitVal2[0].trim();
+                rewardItemId = splitVal3 + "";
+
+                const awardedQty = parseFloat(awardedQtyPart.split("-")[0].trim());
+                const totalComplimentaryQuantity = minMultiple * awardedQty;
+
+                // Add eligible complimentary items
+                isElegibleItem.push({
+                  complimentaryItemId: rewardItemId,
+                  complimentaryQuantity: totalComplimentaryQuantity,
+                  complimentaryName: rewardItemName,
+                  type: "CI"
+                });
+              });
+            }
+          } else {
+
+          }
+        }
+
+      });
+      return [...isElegibleItem, ...isElegibleQty];
+    }
+
+
+
+
+    function cancelOrder() {
+      // var status = confirm("Cancel this order?");
+      location.reload(true);
+
+      // console.log(eligibleComplimentaryItems);
+
+    }
+    async function sendOrder() {
+      // const OrderItm = document.getElementById("orderDetails");
+      if (allSelectedProductlist.length === 0) {
+          alert("Please Select the Products..")
+          return
+      }
+      
+      const TotalCaseAmnt = document.getElementById("CashReceived").value;
+      // const productTotalAmnt = document.getElementById("total_price").textContent;
+      let finalConvetAmnt = document.getElementById("converted-price").textContent; // Final amount to pay
+      const splitAmnt = parseFloat(finalConvetAmnt.split(" ")[1]);
+
+      // Check if TotalCaseAmnt is null, empty, or less than productTotalAmnt
+      
+      try {
+        let pbname = document.getElementById("paid_by").value;
+        if(pbname == "Cash") {
+          if (parseInt(splitAmnt) > parseInt(TotalCaseAmnt) || TotalCaseAmnt === null || TotalCaseAmnt === "" || TotalCaseAmnt === 0) {
+            alert(`The Product Amount "${splitAmnt}" is greater than Received Cash "${TotalCaseAmnt || 0}" `);
+            document.getElementById("CashReceived").value = 0; // Set CashReceived value to 0
+            return; // Stop the function execution
+          }
+        }
+        fetchData_on();
+        // console.log("sendorder calls");
+        // console.log(selectedCustomerId, "selectedCustomerId");
+        let deptoid = document.getElementById("deposit_counter_name").value;
+        
+        const cfromdata = {
+          data: {
+            Paid_by: pbname,
+            Deposit_To: deptoid,
+          }
+        };
+        countconfig = {
+          appName: "point-of-sale",
+          reportName: "All_Counters",
+          id: counterID,
+          data: cfromdata
+        }
+
+        console.log(countconfig);
+        ZOHO.CREATOR.API.updateRecord(countconfig).then(function (response) {
+          // console.log(response);
+
+        });
+        // Fetch Customer Data by ID
+        const Custo = {
+          appName: "point-of-sale",
+          reportName: "All_Customers",
+          id: selectedCustomerId,
+        };
+        // console.log(Custo, "custo");
+
+        let customResponse = await ZOHO.CREATOR.API.getRecordById(Custo);
+        // console.log(customResponse, "custom_responce");
+
+        if (!customResponse.data) {
+          alert("Customer not found.");
+          return;
+        }
+
+        let Customer_data_value = customResponse.data.ID;
+
+        // Get Selected Currency
+        let selected_currency = document.getElementById("currency").value;
+        if (!selected_currency) {
+          alert("Please select the currency type");
+          return;
+        }
+
+        // Fetch Currency Data
+        const Currency_data = {
+          appName: "point-of-sale",
+          reportName: "All_Currency",
+          criteria: '(Currency == "' + selected_currency + '")',
+        };
+
+        // console.log(Currency_data, "Currency_data");
+        let currencyResponse = await ZOHO.CREATOR.API.getAllRecords(Currency_data);
+        // console.log(currencyResponse, "response_data for currency");
+
+        if (currencyResponse.data.length === 0) {
+          alert("Currency not found.");
+          return;
+        }
+
+        let Currency_data_value = currencyResponse.data[0].ID;
+
+        // Process Line Items
+        let lineItems = await Promise.all(
+          Array.from(document.querySelectorAll(".order_list")).map(async (item) => {
+            let totalPrice = 0;
+            const itemID = item.querySelector(".order_list_image img").getAttribute("alt"); // Item name (alt attribute)
+            const quantity = parseInt(item.querySelector(".manual_order_count").value); // Quantity
+
+            // Find selected product and discount
+            const selectedProduct = allSelectedProductlist.find(
+              (product) => product.foodItemID === itemID
+            );
+
+            if (!selectedProduct) {
+              // Skip if no matching product is found
+              // console.log("1111")
+              return null;
+            }
+            
+            const discount = selectedProductDiscounts.find(
+              (j) => j.discitemid === selectedProduct.foodItemID
+            );
+
+            const unitname = selectedProductCases.find((i) =>
+              i.itemID === selectedProduct.foodItemID
+            );
+
+
+             // Additional manual discount calculation
+          const manualDisObj = manualDiscount.find((manual) => manual.itemID == selectedProduct.foodItemID);
+          console.log(manualDisObj,"unledkel");
+          
+          console.log(manualDiscount,"manualDiscount");
+          
+    
+          
+            // const uomDropdowns = document.querySelectorAll('.uom-dropdown');
+            //  // Loop through each dropdown to get the selected UoM value
+            //   uomDropdowns.forEach((dropdown, index) => { const uom = dropdown.value; // Get the selected value of the dropdown
+
+            // Calculate discount based on discount type 
+            let DiscountTypeData = "";
+            let totalDiscount = 0;
+            if (discount) {
+              if (discount.type === "Flat Discount") {
+                selectedProduct.discountType = `${discount.discount}% ${discount.type}`;
+                selectedProduct.discount = discount.discount;
+              } else if (discount.type === "Qty based Discount") {
+                console.log(`DiscountValue ${discount.discount}% ${discount.type}`);
+
+                selectedProduct.discountType =
+                  discount.discountQty == selectedProduct.quantityToBuy
+                    ? `${discount.discount}% ${discount.type}`
+                    : "";
+                selectedProduct.discount = discount.discount || 0;
+              }
+            } else {
+              if(manualDisObj){
+              let percentDisc = 0;
+              let AmntDisc = 0;
+              console.log(manualDisObj,"manobj");
+              if(manualDisObj.dis_type=="percent")
+              {
+                selectedProduct.discountType = manualDisObj?"Manual Discount%":""
+                selectedProduct.discount = manualDisObj?manualDisObj.value:0
+              }
+              else
+              {
+                selectedProduct.discountType = manualDisObj?"Manual Discount$":""
+                selectedProduct.discount = manualDisObj?manualDisObj.value:0
+              }
+              
+            }
+            }
+                     
+            // console.log(discount.discount ,"Discount" ,discount.type);
+            // selecdiscountTypetedProduct.
+            // Calculate price, VAT, and discount amounts
+            totalPrice = selectedProduct.quantityToBuy * selectedProduct.foodPrice;
+            let VAT_Amount = (totalPrice * 5) / 105;
+            let discountAmount = (totalPrice * selectedProduct.discount) / 100;
+            let fdisc=Number.isNaN(Number(selectedProduct.discount)) ? 0 : selectedProduct.discount;
+
+            return {
+              Item: selectedProduct.foodItemID,
+              Qty: selectedProduct.quantityToBuy,
+              Rate: parseFloat((selectedProduct.foodPrice || 0).toFixed(2)),
+              Discount_Name: selectedProduct?.discountType||"",
+              Discount_Amount: parseFloat(selectedProduct.discountType=="Manual Discount$"?fdisc:0).toFixed(2),
+              UOM: unitname?.unit||"pcs",
+              Discount: parseFloat(selectedProduct.discountType!=="Manual Discount$"?fdisc:0).toFixed(2),
+              VAT_Amount: parseFloat((VAT_Amount || 0).toFixed(2)),
+            };
+          })
+        );
+
+        // Filter out null values from lineItems
+        lineItems = lineItems.filter((item) => item !== null);
+
+        // console.log(complimentaryItems, "complimentary")
+        // console.log(lineItems, "lineItems");
+        // Append complimentary items
+        let complimentaryLineItems = complimentaryItems.flat().map((item) => {
+          
+          return {
+            Item: item.complimentaryItemId, // Complimentary item name
+            Qty: item.complimentaryQuantity, // Complimentary item quantity
+            Rate: 0, // Default Rate for complimentary items
+            UOM:"pcs",
+            Discount: 100, // No discount for complimentary items
+            VAT_Amount: 0, // No VAT for complimentary items
+          };
+        });
+
+        lineItems = complimentaryLineItems.length > 0 ? lineItems.concat(complimentaryLineItems) : lineItems;
+
+        // console.log("line", lineItems)
+
+
+        // Payment Information
+        let payments_made = [
+          {
+
+            Payment_Date: (() => {
+              const date = new Date();
+              const day = String(date.getDate()).padStart(2, '0'); // Ensures two-digit day
+              const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+              const month = monthNames[date.getMonth()]; // Get the short form of the month
+              const year = date.getFullYear();
+
+              return `${day}-${month}-${year}`; // Returns the date in DD-MMM-YYYY format
+            })(),
+            Amount_Received: document.getElementById("total_price").value,
+          },
+        ];
+        const formData = {
+          data: {
+            Customer: Customer_data_value,
+            Paid_by: selectedPaymentMethod,
+            Counter: counterID,
+            Delivery_Charges: deliveryChargeValue,
+            Cash_Received: parseFloat(document.getElementById("CashReceived").value),
+            Change: parseFloat(document.getElementById("changeAmount").innerText),
+            Currency: Currency_data_value,
+            Invoice_Date: (() => {
+              const date = new Date();
+              const day = String(date.getDate()).padStart(2, '0'); // Ensures two-digit day
+              const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+              const month = monthNames[date.getMonth()]; // Get the short form of the month
+              const year = date.getFullYear();
+
+              return `${day}-${month}-${year}`; // Returns the date in DD-MMM-YYYY format
+            })(),
+
+            Item_Information: lineItems,
+            // Ensure these elements exist in the DOM
+            Sub_Total: document.getElementById("total_price_without_vat")
+              ? document.getElementById("total_price_without_vat").innerHTML
+              : null,
+
+            VAT_Amount: document.getElementById("total_price_with_vat")
+              ? document.getElementById("total_price_with_vat").innerHTML
+              : null,
+
+            Net_Total: document.getElementById("total_price")
+              ? document.getElementById("total_price").innerHTML
+              : null,
+            Deposit_to: selectedDepositToCounterId,
+            // Discount_Amount: Mdisctotal ? Mdisctotal : null,
+          },
+        };
+
+
+        // console.log(document.getElementById("discount_option").value,"PCS");
+
+        // console.log(document.getElementById("discount_option").innerHTML,"Case");
+
+        console.log(formData, "formData for billing");
+
+        // // // Add Invoice Record
+        const config = {
+          appName: "point-of-sale",
+          formName: "Add_Invoice",
+          data: formData,
+        };
+
+        // // console.log(config, "config");
+
+        let addInvoiceResponse = await ZOHO.CREATOR.API.addRecord(config);
+        console.log(addInvoiceResponse, "response after billing process");
+
+        if (addInvoiceResponse.code === 3000) {
+          // showAlert('order sent successfully');
+          alert("Order Added Successfully");
+          fetchData_off();
+          let recID = addInvoiceResponse.data;
+          let purl = "https://creatorapp.zoho.com/export/rrcellars/point-of-sale/print/Billing_Template/?invId=" + recID.ID +
+            "&initial=false&isc5page=true";
+          openPopup(purl);
+          location.reload(true);
+        } else {
+          alert("Failed to add order: " + addInvoiceResponse.message || addInvoiceResponse.code);
+        }
+      } catch (error) {
+        fetchData_off();
+        console.error("Error during the process:", error);
+        // alert("An error occurred while adding the order.");
+      }
+    }
+    function clearOrders() {
+      var rightMenu = document.querySelector(".parent_order_list");
+      rightMenu.innerHTML = "";
+      document.querySelector("#total_price_without_vat").textContent = "";
+      document.querySelector("#total_price_with_vat").textContent = "";
+      document.querySelector("#total_price").textContent = "";
+      document.querySelector(".bill_section").style.display = "none";
+      orderCounts = {};
+      document.getElementById("guestInput").value = "";
+      document.getElementById("tableNoInput").value = "";
+    }
+    // barcode search algorithm
+    var i = 0;
+    function search_barcode(search_barcode_after_add, event) {
+      isManagerAccount = getManagerAccess();
+      // console.log("barcode",isManagerAccount)
+      let searchVal = document.getElementById("search_element").value;
+      if (search_barcode_after_add != "" && search_barcode_after_add != undefined) {
+        var i = 0;
+        var search_barcode_value = search_barcode_after_add;
+
+        var initparams = ZOHO.CREATOR.UTIL.getInitParams();
+        var barcode_config = {
+          appName: "point-of-sale",
+          reportName: "All_Items",
+          criteria: '(SKU == "' + search_barcode_value + '" || Item_Name == "' + searchVal + '")',
+        };
+        const publishKey = "5UtrnEGayRBG9MJCyUYketrTJXKFSAG8NtS3XfXOry74aXuVErsWzM3P2dX6B9GWmPkjypmuxb7ZOwmEbxnZCHuTKba34xF8WtAS";
+        ZOHO.CREATOR.API.getAllRecords(barcode_config).then(function (
+          barcode_data
+        ) {
+          var cardDataList = barcode_data.data.map((barcode_data) => ({
+            imageUrl:
+              "https://creator.zoho.com/rrcellars/point-of-sale/All_Items/Item_Image/image/" +
+              barcode_data.Item_Image.slice(barcode_data.Item_Image.indexOf("=") + 1),
+              foodItemName: barcode_data.Item_Name || "Unknown Item",
+              foodItemID: barcode_data.ID || "Unknown ItemID",
+              stock: barcode_data.Available_Stock || "in stock", // Assuming Available_Stock exists
+              foodPrice: parseFloat(barcode_data.Rate),
+              foodDescription:
+              barcode_data.Item_Description || "No description available",
+              foodSKU: barcode_data.SKU || "SKU",
+          }));
+          // console.log(cardDataList, "cardDataListcardDataListcardDataList");
+
+          displayData(cardDataList);
+          var name = cardDataList[0].foodItemName;
+          var FoodID = cardDataList[0].foodItemID;
+
+          // console.log(name, "name of the product selected from barcode for order");
+          //logic to extract the particular item which is selected
+
+          const existingProduct = allSelectedProductlist.find(
+            (item) => item.foodItemID === FoodID
+          );
+          if (existingProduct) {
+            // If the product is already in the list, increment the quantity
+            existingProduct.quantityToBuy += 1;
+            let searchVal1 = document.getElementById("search_element");
+            searchVal1.value = "";
+            displayData(allRecords);
+          } else {
+            // console.log(allProducts, "allProducts")
+            // If the product is not in the list, push it with quantity set to 1
+
+            if (event.key == "Enter" || event.keyCode == 13) {
+              allSelectedProductlist.push({
+                ...allProducts.find((item) => item.foodItemID === FoodID), // Find and spread the product object
+                quantityToBuy: 1, // Add the quantity field with initial value 1
+              });
+              let searchVal1 = document.getElementById("search_element");
+              searchVal1.value = "";
+              displayData(allRecords);
+              reindexOrderCounts(allSelectedProductlist);
+            }
+
+          }
+          if (!searchVal.includes(name)) {
+            var price = cardDataList[0].foodPrice;
+            var imageSrc = cardDataList[0].imageUrl;
+            var imagealt = cardDataList[0].foodItemID;
+            var description = cardDataList[0].foodDescription;
+            var item_ID_Data = cardDataList[0].foodDescription;
+            // var foodType = cardInnerSec.querySelector(".dish_type").value;
+
+            if (!orderCounts[imagealt]) {
+              orderCounts[imagealt] = 1;
+            } else {
+              orderCounts[imagealt]++;
+            }
+
+            if (total_price_with_vat.textContent == "") {
+              total_price_with_vat.textContent = 0;
+            }
+
+            total_price_with_vat.textContent = (
+              parseFloat(total_price_without_vat.textContent) * 0.05
+            ).toFixed(2);
+
+            if (total_price.textContent == "") {
+              total_price.textContent = 0;
+            }
+
+            total_price.textContent =
+              parseFloat(total_price_without_vat.textContent) +
+              parseFloat(total_price_with_vat.textContent);
+
+            var bill_section = document.getElementsByClassName("bill_section");
+
+            var num_items = document.getElementById("num_items");
+            num_items.innerText = Object.keys(orderCounts).length;
+
+            var parentOrderList = document.querySelector(".parent_order_list");
+
+            var existingOrderItem = parentOrderList.querySelector(
+              `.order_list img[alt="${imagealt}"]`
+            );
+          }
+
+          if (existingOrderItem) {
+            // console.log("item already existed");
+            const orderItem = Array.from(
+              document.querySelectorAll(".order_list")
+            ).find((row) => {
+              return (
+                row.querySelector(".item_name").textContent.trim() === name
+              );
+            });
+            // console.log(orderItem, "orderItem");
+            if (orderItem) {
+              // Target the input field for the order count in the found row
+              const inputField = orderItem.querySelector(
+                ".manual_order_count"
+              );
+
+              // Set a new value for the input field (for example, setting it to 5)
+              inputField.value = orderCounts[imagealt];
+              // console.log(
+              //   `Order count updated for ${name}: ${inputField.value}`
+              // );
+            } else {
+              // console.log(`Item with name ${name} not found.`);
+            }
+            complimentaryItems
+            const array = generateDiscountOptions(
+              name,
+              orderCounts[imagealt],
+              "John Doe"
+            );
+
+            finalAmountCalculation();
+          } else {
+
+            if (!searchVal.includes(name)) {
+              complimentaryItems
+              const array = generateDiscountOptions(
+                name,
+                orderCounts[imagealt],
+                "John Doe"
+              );
+
+              const isExist = selectedProductCases.find(item => item.itemID == imagealt);
+              if (!isExist) {
+                caseSelection(1, name, "pcs", imagealt);
+              }
+
+              calculateDiscountSum(array);
+
+              let discountOptionsHtml = `<option value="0">Select Discount</option>`;
+              if (array.length > 0) {
+                disOptionsHtml = array
+                  .filter(
+                    (option) =>
+                      option.percentageValue !== null &&
+                      !isNaN(option.percentageValue)
+                  ) // Filter out null or NaN
+                  .map(
+                    (option) =>
+                      `<option value="${option.percentageValue}" data-qty=${option.discountQty
+                      }>
+          ${option.displayName} - ${option.percentageValue}%
+        </option>`
+                  )
+                  .join("");
+                discountOptionsHtml = discountOptionsHtml + disOptionsHtml;
+              } else {
+                discountOptionsHtml = `<option value="0">No Discount available</option>`;
+              }
+
+              let orderItemHtml = "";
+              if (isManagerAccount) {
+                orderItemHtml = `
+        <div class="order_list">
+      <div class="inner_order_list order_list_item" id="product-1">
+          <div class="order_item_details">
+           
+              <div class="order_list_image">
+                  <h3 style="font-size:10px;">${allSelectedProductlist.length
+                  }.</h3>
+                  <img style="display:none;" src="${imageSrc}" alt="${imagealt}" />
+              </div>
+              <h3 class="item_name" style="font-size:10px;width: 200px">${name}</h3>
+              <h1 class="item_price" style="font-size:10px;">AED ${price}</h1>
+              <input style="font-size:12px;" type="hidden" class="order_desc" value='${description}' />  
+          </div>
+          <div class="order_counter">
+                          <div class="sub_order_item_details">
+                 <div class="manual_discount">
+                      <input type="number" id="discountValue1" data-name="${name}" data-itemid="${imagealt}" value="" class="manualDisc" disabled min="0" onkeyup="handleDiscountValue(this.dataset.name,this.value,this.dataset.itemid)" />
+                      <select id="discountType1" disabled class = "manual_cash_disc" data-name="${name}" data-itemid="${imagealt}" onchange="handleDiscountType(this.dataset.name,this.value,this.dataset.itemid)">
+                          <option value="percent">%</option>
+                          <option value="amount">AED</option>
+                      </select>
+                  </div>
+                  <div class="discount_dropdown_container">
+                       <select class="discount_dropdown" data-name="${name}" data-itemid="${imagealt}" onchange="discountSelection(this.dataset.name,this.value,event,this.dataset.itemid)" id="discount">
+                          ${discountOptionsHtml}
+                      </select>
+                  </div>
+              </div>
+              <input onchange="updateTotal('${imagealt}', '${price}')" type="number" name="number" class="manual_order_count" data-name="${name}" data-itemid="${imagealt}" style="font-size:10px;width: 50px;" id="quantity_${imagealt}" value="${orderCounts[imagealt]}" />
+              <select id="discount_option" class="quantity_${imagealt}" data-name="${name}" data-itemid="${imagealt}" onchange="caseSelection(this.value,this.dataset.name,this.options[this.selectedIndex].innerHTML,this.dataset.itemid);updateTotal('${imagealt}', '${price}')">${UOM}</select>
+              <p id="totalAmount_${imagealt}">${parseInt(orderCounts[imagealt] * price)}</p>
+            <div>
+              <button style="width:min-content;" id="btn-delete" data-iao="${imagealt}" value="${name}" onclick="removeCartItem(this.value,event,this.dataset.iao)">
+                  <i id="lockIcon" class="fa fa-trash"></i>
+            </button>
+           </div>
+          </div>
+      </div>
+       </div>
+        `;
+              } else {
+                orderItemHtml = `
+        <div class="order_list">
+      <div class="inner_order_list order_list_item" id="product-1">
+          <div class="order_item_details">
+           
+              <div class="order_list_image">
+                  <h3 style="font-size:10px;">${allSelectedProductlist.length
+                  }.</h3>
+                  <img style="display:none;" src="${imageSrc}" alt="${imagealt}" />
+              </div>
+              <h3 class="item_name" style="font-size:10px;width: 200px">${name}</h3>
+              <h1 class="item_price" style="font-size:10px;">AED ${price}</h1>
+              <input style="font-size:12px;" type="hidden" class="order_desc" value='${description}' />  
+          </div>
+          <div class="order_counter">
+                          <div class="sub_order_item_details">
+                 <div class="manual_discount">
+                      <input type="number" id="discountValue1" data-name="${name}" data-itemid="${imagealt}" value="" class="manualDisc"  min="0" onkeyup="handleDiscountValue(this.dataset.name,this.value,this.dataset.itemid)" />
+                      <select id="discountType1"  class = "manual_cash_disc" data-name="${name}"data-itemid="${imagealt}" onchange="handleDiscountType(this.dataset.name,this.value,this.dataset.itemid)">
+                          <option value="percent">%</option>
+                          <option value="amount">AED</option>
+                      </select>
+                  </div>
+                  <div class="discount_dropdown_container">
+                       <select class="discount_dropdown" data-name="${name}" data-itemid="${imagealt}" onchange="discountSelection(this.dataset.name,this.value,event,this.dataset.itemid)" id="discount">
+                          ${discountOptionsHtml}
+                      </select>
+                  </div>
+              </div>
+              <input onchange="updateTotal('${imagealt}', '${price}')" type="number" name="number" class="manual_order_count"  data-name="${name}" data-itemid="${imagealt}" style="font-size:10px;width: 50px;" id="quantity_${imagealt}" value="${orderCounts[imagealt]}" />
+              <select id="discount_option" class="quantity_${imagealt}" data-name="${name}" data-itemid="${imagealt}" onchange="caseSelection(this.value,this.dataset.name,this.options[this.selectedIndex].innerHTML,this.dataset.itemid);updateTotal('${imagealt}', '${price}')">${UOM}</select>
+              <p id="totalAmount_${imagealt}">${parseInt(orderCounts[imagealt] * price)}</p>
+            <div>
+              <button style="width:min-content;" id="btn-delete" data-iao="${imagealt}" value="${name}" onclick="removeCartItem(this.value,event,this.dataset.iao)">
+                  <i id="lockIcon" class="fa fa-trash"></i>
+            </button>
+           </div>
+          </div>
+      </div>
+       </div>
+        `;
+              }
+              // Add this part in your script to handle the OK button press:
+
+              const deliveryChargesInput =
+                document.getElementById("deliveryCharges");
+
+              // Add an input event listener to capture the input value dynamically
+              deliveryChargesInput.addEventListener("input", function (event) {
+                // Get the current value of the input field
+                if (event.target.value != "") {
+                  // console.log("input event listener called");
+                  deliveryChargeValue = parseFloat(event.target.value);
+                  // console.log("Current Delivery Charge:", deliveryChargeValue);
+
+                  // Optionally, you can perform additional logic here
+                  // For example, you can dynamically calculate totals or validate the input
+                } else {
+                  deliveryChargeValue = 0;
+                }
+
+                finalAmountCalculation();
+                reindexOrderCounts(allSelectedProductlist);
+              });
+
+              document.addEventListener("input", function (event) {
+                try {
+                  // Check if the input field has the class 'manual_order_count'
+                  if (event.target.classList.contains("manual_order_count") && event.target.value != '') {
+                    const orderItem = event.target.closest(".inner_order_list");
+                    console.log(orderItem,"orderItem");
+                    
+                    const discount_pannel = event.target.closest(".discount_option");
+
+                    const newOrderCount = parseInt(event.target.value); // Get the input value directly
+                    const itemName = orderItem.querySelector(".item_name").textContent.trim();
+
+                    // Find the product in allSelectedProductlist based on the item name
+                    // console.log();
+
+                    const selectedProduct = allSelectedProductlist.find(
+                      (product) => product.foodItemID === FoodID
+                    );
+
+                    if (selectedProduct) {
+                    document.getElementById("CashReceived").value = "";
+                    
+                      // If the order count is 0, remove the row
+                      if (newOrderCount === 0) {
+                        delete orderCounts[selectedProduct.foodItemID]
+                        // Remove the row from the DOM
+                        event.target.closest(".order_list").remove();
+                        orderItem.remove();
+                        offers.innerHTML = "";
+                        const caseIndex = selectedProductCases.findIndex(
+                          (product) => product.foodItemID === FoodID
+                        );
+                        if (caseIndex > -1) {
+                          selectedProductCases.splice(caseIndex, 1); // Remove item from the list
+                        }
+                        const complementaryIndex = complimentaryItems.findIndex((product) => product.complimentaryItemId === FoodID);
+                        if (complementaryIndex > -1) {
+                          
+                          complimentaryItems.splice(complementaryIndex, 1);
+                        }
+                        const discountIndex = selectedProductDiscounts.findIndex((product) => product.itemID === FoodID);
+                        if (discountIndex > -1) {
+                          selectedProductDiscounts.splice(discountIndex, 1)
+                        }
+                        // const removeProduct = allSelectedProductlist.find(
+                        //   (product) => product.foodItemName === itemName
+                        // );
+                        // if(removeProduct){
+                        //   await delete orderCounts[removeProduct.foodItemID]
+                        // }
+
+
+
+                        // Remove the item from allSelectedProductlist
+                        const index = allSelectedProductlist.findIndex(
+                          (product) => product.foodItemID === FoodID
+                        );
+                        if (index > -1) {
+                          allSelectedProductlist.splice(index, 1); // Remove item from the list
+                        }
+                        const manualIndex = manualDiscount.findIndex(
+                          (product) => product.itemID === FoodID
+                        );
+                        if (manualIndex > -1) {
+                          manualDiscount.splice(manualIndex, 1); // Remove item from the list
+                        }
+
+                        reindexOrderCounts(allSelectedProductlist)
+                        finalAmountCalculation();
+
+                        // console.log(`Item "${itemName}" removed.`);
+                      } else {
+                        // Update the quantityToBuy with the new value
+                        selectedProduct.quantityToBuy = newOrderCount;
+                        // console.log(selectedProduct.quantityToBuy,"jsjvcs");
+
+
+                        orderCounts[selectedProduct.foodItemID] = newOrderCount;
+
+                        // Update orderCounts
+                        let newProductQty = 1;
+                        if (selectedProductCases.length > 0) {
+                          const products = selectedProductCases.find((pt) => pt.itemID == FoodID);
+
+                          if (products) {
+                            newProductQty = newOrderCount * parseInt(products.case);
+                          }
+                        } else {
+                          newProductQty = newOrderCount;
+                        }
+
+                        reindexOrderCounts(allSelectedProductlist)
+                        finalAmountCalculation(); // Perform final amount calculation
+                      }
+                    } else {
+                      // console.log("Product not found in allSelectedProductlist:", itemName);
+                    }
+                  }
+                } catch (error) {
+                  console.log("cache error ", error)
+                }
+              });
+
+              // Function to re-index order count
+              finalAmountCalculation();
+              reindexOrderCounts(allSelectedProductlist)
+              if (Object.keys(orderCounts).length == 0) {
+                bill_section[0].style.display = "none";
+              } else bill_section[0].style.display = "block";
+
+              parentOrderList.insertAdjacentHTML("beforeend", orderItemHtml);
+
+              var newItem = parentOrderList
+                .querySelector(`.order_list img[alt="${imagealt}"]`)
+                .closest(".order_list");
+
+              // newItem.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }
+        });
+
+      }
+
+      if (search_barcode_after_add === "") {
+        let counter_val = 1;
+        let allRecords = []; // Array to hold all records
+        fetchRecords(1);
+      }
+    }
+
+
+
+    // Function to add the selected item to the cart manually (called when "Add to Cart" button is clicked)
+    function addItemToCart(item) {
+      console.log(item,"item");
+      
+      const name = item.foodItemName;
+
+      const existingProduct = allSelectedProductlist.find(
+        (prod) => prod.foodItemID === item.foodItemID
+      );
+
+      if (existingProduct) {
+        existingProduct.quantityToBuy += 1;
+      } else {
+        allSelectedProductlist.push({
+          ...allProducts.find((prod) => prod.foodItemID === item.foodItemID),
+          quantityToBuy: 1,
+        });
+      }
+
+      updateOrderDetails(item);
+    }
+
+    // Function to update order details (called after item is added to cart)
+    function updateOrderDetails(item) {
+      var price = item.foodPrice;
+      var imageSrc = item.imageUrl;
+      var imagealt = item.foodItemID;
+      var description = item.foodDescription;
+
+      // Your existing code for updating the cart UI, total price, order list, etc.
+      // ...
+    }
+
+
+    const searchOrders = (elem, event) => {
+      const searchInput = document.getElementById("search_element");
+      const clearBtn = document.getElementById("clear-btn");
+
+      searchInput.addEventListener("input", () => {
+          clearBtn.style.display = searchInput.value ? "block" : "none";
+        });        
+        clearBtn.addEventListener("click", () => {
+          searchInput.value = "";
+          clearBtn.style.display = "none";
+          displayData(allRecords)
+        });
+
+      const searchTerm = elem.value.trim().toLowerCase();
+
+      if (event.key == "Enter" || event.keyCode == 13) {
+        search_barcode(searchTerm, event);
+      }
+      else {
+        const searchInput = document.getElementById('search_element');
+        const resultDiv = document.getElementById('cardContainer');
+        const query = searchInput.value.toLowerCase();
+        const filteredData = allProducts.filter(item => item.foodItemName.toLowerCase().includes(query));
+        displayData(filteredData);
+        // displayData(cardDataList); // Show all items if the search term is too short
+      }
+    };
+
+    const viewNavigation = () => {
+      const nav = document.getElementById("Navigation");
+      nav.style.display =
+        nav.style.display === "none" || nav.style.display === ""
+          ? "block"
+          : "none";
+    };
+
+    const openOrderView = () => {
+      document.getElementById("PO_order_container").style.display = "block";
+    };
+
+    const closeOrderView = () => {
+      document.getElementById("PO_order_container").style.display = "none";
+    };
+  </script>
+</body>
+
+</html>
